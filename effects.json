@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "workflow_id": "summer-video-effects",
+  "human_guide": "特效与切屏规范.md",
+  "shot_library": {
+    "name": "video-shotcraft",
+    "repository": "https://github.com/Vincentwei1021/video-shotcraft",
+    "gallery": "https://vincentwei1021.github.io/video-shotcraft/library.html",
+    "pinned_ref": "0d6f0b57f0d4d6700761644c07f7ef03c3e50234",
+    "license": "Apache-2.0",
+    "install_path": "~/.codex/skills/video-shotcraft",
+    "inventory_at_pinned_ref": {
+      "recipe_cards": 152,
+      "motion_previews": 209
+    },
+    "usage_contract": [
+      "Validate the card name and style-key in gallery/api/library.json.",
+      "Read the complete references/shots card and the exact demo TSX named by its reference implementation.",
+      "Reuse motion structure, rhythm, and implementation patterns; do not use Gallery preview media as project footage.",
+      "Adapt copy, fonts, colors, screenshots, recordings, and talking-head footage to the current project.",
+      "Preserve the source license and attribution requirements."
+    ]
+  },
+  "visual_system": {
+    "title_background": {
+      "description": "low-contrast black and gray animated technology perspective grid",
+      "user_supplied_path": "01-原始素材/07-背景与动效素材",
+      "generated_path": "04-动效与包装/背景"
+    },
+    "talking_head_pip": {
+      "preferred_corner": "bottom-right",
+      "width_percent_range": [22, 28],
+      "right_margin_percent": 4,
+      "bottom_margin_percent": 4,
+      "transition_frames_at_30fps": [12, 20],
+      "preserve_continuous_audio": true,
+      "avoid": ["captions", "critical UI", "buttons", "data labels", "product names"]
+    },
+    "captions": {
+      "layer": "main-composition",
+      "never_inside_pip": true,
+      "max_lines": 2,
+      "pip_present_safe_width_percent": 68,
+      "move_when_conflicting_with_ui": true
+    },
+    "settle_after_primary_motion_seconds": [0.8, 1.5]
+  },
+  "states": [
+    {
+      "id": "talking-head-fullscreen",
+      "trigger": ["opening narration", "personal opinion", "emotional emphasis", "no supporting material"],
+      "main": "talking-head footage fullscreen",
+      "talking_head": "fullscreen"
+    },
+    {
+      "id": "title-stage",
+      "trigger": ["product name", "tool name", "chapter title", "key conclusion"],
+      "main": "technology grid with animated title or keyword",
+      "talking_head": "bottom-right PIP"
+    },
+    {
+      "id": "material-fullscreen",
+      "trigger": ["screen recording", "screenshot", "image", "document", "visual evidence"],
+      "main": "supporting material fullscreen and readable",
+      "talking_head": "bottom-right PIP or another safe corner"
+    },
+    {
+      "id": "split-dialogue-canvas",
+      "trigger": ["dialogue", "collaboration", "handoff", "process breakdown", "AI generation to canvas"],
+      "main": "split layout or fullscreen canvas",
+      "talking_head": "bottom-right PIP or hidden when content requires it"
+    }
+  ],
+  "transition_policy": {
+    "state_change_requires_effect": true,
+    "clean_jump_cut_allowed_for": ["mistake removal within the same state", "pause removal within the same state"],
+    "align_to": "spoken semantic cue or sentence boundary",
+    "one_primary_motion_language_per_shot": true,
+    "avoid_continuous_motion_during_reading": true,
+    "custom_layout_transitions": [
+      {
+        "id": "talking-head-to-pip",
+        "action": "Keep the same clip and audio while animating scale, position, crop, corner radius, border, and shadow into the safe corner.",
+        "duration_frames_at_30fps": [12, 20]
+      },
+      {
+        "id": "pip-to-talking-head",
+        "action": "Reverse the PIP transform after the material or title clears; do not restart the speaker clip.",
+        "duration_frames_at_30fps": [12, 20]
+      }
+    ],
+    "matrix": [
+      {
+        "from": "talking-head-fullscreen",
+        "to": "title-stage",
+        "preferred": ["neon-frame-orbit-drop", "line-carry-transition", "flash-cut"]
+      },
+      {
+        "from": "talking-head-fullscreen",
+        "to": "material-fullscreen",
+        "preferred": ["tilt-reveal", "mosaic-reframe", "line-carry-transition"]
+      },
+      {
+        "from": "title-stage",
+        "to": "material-fullscreen",
+        "preferred": ["mosaic-reframe", "cube-navigation", "paper-plane-messenger"]
+      },
+      {
+        "from": "material-fullscreen",
+        "to": "material-fullscreen",
+        "preferred": ["line-carry-transition", "mosaic-reframe", "flash-cut"]
+      },
+      {
+        "from": "material-fullscreen",
+        "to": "talking-head-fullscreen",
+        "preferred": ["glow-wake-sleep-panel", "line-carry-transition", "flash-cut"]
+      },
+      {
+        "from": "any",
+        "to": "split-dialogue-canvas",
+        "preferred": ["dialogue-duet + panel-to-canvas"]
+      }
+    ]
+  },
+  "opening_policy": {
+    "ordered_when_multiple_are_used": true,
+    "use_only_when_supported_by_spoken_meaning": true,
+    "do_not_force_all_effects": true
+  },
+  "opening_recipe": [
+    {
+      "order": 1,
+      "card": "magician-card-flourish",
+      "style": "magician-card-flourish",
+      "source": "references/shots/opening/magician-card-flourish.md",
+      "demo": "demos/opening/magician-card-flourish/MagicianCardFlourish.tsx",
+      "cue": "hook or first reveal of the central object",
+      "adaptation": "Replace the demo card with the current project's main screenshot, cover, or concept card."
+    },
+    {
+      "order": 2,
+      "card": "dashboard-glow-highlight-pill",
+      "style": "dashboard-glow-highlight-pill",
+      "source": "references/shots/effects/dashboard-glow-highlight-pill.md",
+      "demo": "demos/effects/dashboard-glow-highlight-pill/DashboardGlowHighlightPill.tsx",
+      "cue": "spoken key capability, field, or decisive phrase",
+      "adaptation": "Highlight only the exact phrase being spoken."
+    },
+    {
+      "order": 3,
+      "card": "neon-frame-orbit-drop",
+      "style": "neon-frame-orbit-drop",
+      "source": "references/shots/ui-entrance/neon-frame-orbit-drop.md",
+      "demo": "demos/ui-entrance/neon-frame-orbit-drop/NeonFrameForerunOrbit.tsx",
+      "cue": "move from the hook into the explanation state",
+      "adaptation": "Place the talking-head video inside the moving frame and settle it into the bottom-right PIP."
+    }
+  ],
+  "effect_groups": {
+    "transitions": [
+      {
+        "card": "shot-transitions",
+        "style": "flash-cut",
+        "source": "references/shots/transition/shot-transitions.md",
+        "demo": "template/src/aifl/Main.tsx",
+        "use": "short emphasis, rapid same-topic switch, or return to the speaker"
+      },
+      {
+        "card": "paper-plane-messenger",
+        "style": "paper-plane-messenger",
+        "source": "references/shots/transition/paper-plane-messenger.md",
+        "demo": "demos/transition/paper-plane-messenger/PaperPlaneMessenger.tsx",
+        "use": "send, share, handoff, or message transfer"
+      },
+      {
+        "card": "overhead-camera-moves",
+        "style": "tilt-reveal",
+        "source": "references/shots/camera/overhead-camera-moves.md",
+        "demo": "demos/camera/overhead-camera-moves/TiltReveal.tsx",
+        "use": "reveal a complete screen, desk, document, or material"
+      },
+      {
+        "card": "mosaic-reframe",
+        "style": "mosaic-reframe",
+        "source": "references/shots/transition/mosaic-reframe.md",
+        "demo": "demos/transition/mosaic-reframe/MosaicReframe.tsx",
+        "use": "multiple screenshots, multiple stages, or overview-to-detail"
+      },
+      {
+        "card": "line-carry-transition",
+        "style": "line-carry-transition",
+        "source": "references/shots/transition/line-carry-transition.md",
+        "demo": "demos/transition/line-carry-transition/LineCarryTransition.tsx",
+        "use": "carry a border, path, or highlight into the next scene"
+      },
+      {
+        "card": "speed-ramp-freeze",
+        "style": "speed-ramp",
+        "source": "references/shots/rhythm/speed-ramp-freeze.md",
+        "demo": "demos/rhythm/speed-ramp-freeze/SpeedRampReal.tsx",
+        "use": "fast operation or high-energy result reveal; never during a reading segment"
+      }
+    ],
+    "titles_and_product_names": [
+      {
+        "card": "spotlight-hero-card",
+        "style": "spotlight-hero-card",
+        "source": "references/shots/opening/spotlight-hero-card.md",
+        "demo": "template/src/aifl/live/SceneOpen.tsx",
+        "use": "product name, central proposition, or chapter card"
+      },
+      {
+        "card": "segmented-thumb-hero",
+        "style": "segmented-thumb-hero",
+        "source": "references/shots/interaction/segmented-thumb-hero.md",
+        "demo": "demos/interaction/segmented-thumb-hero/SegmentedThumbHero.tsx",
+        "use": "modes, options, or before-and-after states"
+      },
+      {
+        "card": "type-and-filter",
+        "style": "type-and-filter",
+        "source": "references/shots/interaction/type-and-filter.md",
+        "demo": "template/src/aifl/live/SceneFlyIn.tsx",
+        "use": "search, filter, keyword input, and result narrowing"
+      },
+      {
+        "card": "cube-navigation",
+        "style": "cube-navigation",
+        "source": "references/shots/transition/cube-navigation.md",
+        "demo": "demos/transition/cube-navigation/CubeNavigation.tsx",
+        "use": "chapter or spatial-level navigation"
+      },
+      {
+        "card": "card-flock-tumble",
+        "style": "card-flock-tumble",
+        "source": "references/shots/transition/card-flock-tumble.md",
+        "demo": "demos/transition/card-flock-tumble/CardFlockTumble.tsx",
+        "use": "multiple cards, outcomes, or collected items"
+      }
+    ],
+    "screen_ui_and_process": [
+      {
+        "card": "ai-stream-response",
+        "style": "ai-stream-response",
+        "source": "references/shots/interaction/ai-stream-response.md",
+        "demo": "demos/interaction/ai-stream-response/StreamResponse.tsx",
+        "use": "AI conclusion first, evidence rows second, completed state last"
+      },
+      {
+        "card": "autolayout-gap-dial",
+        "style": "autolayout-gap-dial",
+        "source": "references/shots/interaction/autolayout-gap-dial.md",
+        "demo": "demos/interaction/autolayout-gap-dial/AutolayoutGapDial.tsx",
+        "use": "parameter, spacing, layout, or numeric adjustment"
+      },
+      {
+        "card": "glass-pill-dictation-typing",
+        "style": "glass-pill-dictation-typing",
+        "source": "references/shots/interaction/glass-pill-dictation-typing.md",
+        "demo": "demos/interaction/glass-pill-dictation-typing/GlassPillDictationTyping.tsx",
+        "use": "voice input, dictation, live typing, or prompt entry"
+      },
+      {
+        "card": "canvas-materialize-moves",
+        "style": "panel-to-canvas",
+        "source": "references/shots/interaction/canvas-materialize-moves.md",
+        "demo": "demos/interaction/canvas-materialize-moves/PanelToCanvasMaterialize.tsx",
+        "use": "move generated rows or panel content onto an open canvas"
+      }
+    ],
+    "closing_and_return": [
+      {
+        "card": "spotlight-sweep-moves",
+        "style": "glow-wake-sleep-panel",
+        "source": "references/shots/effects/spotlight-sweep-moves.md",
+        "demo": "demos/effects/spotlight-sweep-moves/GlowWakeSleepPanel.tsx",
+        "use": "wake the current panel, complete the explanation, then let it sleep before returning to the speaker"
+      }
+    ]
+  },
+  "compositions": [
+    {
+      "id": "dialogue-to-canvas",
+      "first": {
+        "card": "collab-cursor-moves",
+        "style": "dialogue-duet",
+        "source": "references/shots/interaction/collab-cursor-moves.md",
+        "demo": "demos/interaction/collab-cursor-moves/CursorDialogueDuet.tsx"
+      },
+      "then": {
+        "card": "canvas-materialize-moves",
+        "style": "panel-to-canvas",
+        "source": "references/shots/interaction/canvas-materialize-moves.md",
+        "demo": "demos/interaction/canvas-materialize-moves/PanelToCanvasMaterialize.tsx"
+      },
+      "rule": "Finish the cursor dialogue and handoff before materializing content; do not run both primary actions during the same reading moment."
+    }
+  ],
+  "selection_algorithm": [
+    "Finish transcript-based mistake and pause removal before motion timing.",
+    "Mark the spoken semantic cues for names, claims, demonstrations, evidence, collaboration, and returns to the speaker.",
+    "Assign one of the four visual states to every segment.",
+    "Assign a transition to every state change and a clean jump cut only to same-state speech cleanup.",
+    "Choose one primary effect whose meaning matches the spoken cue; do not repeat an effect back-to-back.",
+    "Keep recordings and screenshots fullscreen and readable, with the speaker in a safe-corner PIP.",
+    "Write captions on the main composition and resolve PIP/UI conflicts before previewing.",
+    "Write the effect map and director storyboard before producing a preview."
+  ],
+  "project_outputs": {
+    "effect_map": "04-动效与包装/特效映射.json",
+    "storyboard": "04-动效与包装/导演分镜.md",
+    "generated_backgrounds": "04-动效与包装/背景",
+    "preview": "06-预览与审核",
+    "final": "07-成片"
+  }
+}

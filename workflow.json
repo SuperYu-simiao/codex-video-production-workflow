@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "workflow_id": "summer-video-workflow",
+  "projects_root": "本地项目",
+  "project_template": "项目模板",
+  "project_marker": "project.json",
+  "references": {
+    "dependencies": "dependencies.json",
+    "effects": "effects.json",
+    "effects_human_guide": "特效与切屏规范.md"
+  },
+  "create_command": [
+    "python3",
+    ".agents/skills/video-production-bootstrap/scripts/create_video_project.py",
+    "--name",
+    "<项目名称>"
+  ],
+  "new_project_when": [
+    "开始一条新的独立视频",
+    "主要口播、主题或最终交付物发生变化",
+    "需要保留上一条视频的工程和中间产物",
+    "用户明确要求新建视频项目"
+  ],
+  "continue_existing_project_when": [
+    "同一条视频补录或补充图片",
+    "修改同一条视频的字幕、动效、节奏或成片",
+    "用户明确指定了含 project.json 的现有项目目录"
+  ],
+  "project_directories": [
+    {
+      "path": "01-原始素材/01-口播视频",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "相机原片、手机口播和补录片段"
+    },
+    {
+      "path": "01-原始素材/02-录屏",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "产品、网页、软件和教程录屏"
+    },
+    {
+      "path": "01-原始素材/03-图片与截图",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "产品图、照片、截图和授权图片"
+    },
+    {
+      "path": "01-原始素材/04-音频",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "独立录音、旁白、授权音乐和音效"
+    },
+    {
+      "path": "01-原始素材/05-文稿与字幕",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "口播稿、已有转录、SRT 和内容说明"
+    },
+    {
+      "path": "01-原始素材/06-授权说明",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "素材来源、许可证、署名和公开范围"
+    },
+    {
+      "path": "01-原始素材/07-背景与动效素材",
+      "owner": "user",
+      "codex_access": "read_only",
+      "purpose": "用户提供的动态背景、授权 B-roll 和外部动效素材"
+    },
+    {
+      "path": "02-转录与剪辑决策",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "转录缓存、字幕、口误卡顿标记、EDL 和精剪方案"
+    },
+    {
+      "path": "03-精剪输出",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "不覆盖原片的精剪视频、音频和字幕"
+    },
+    {
+      "path": "04-动效与包装",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "导演分镜、动效脚本、素材映射和独立动画工程"
+    },
+    {
+      "path": "05-Remotion工程",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "当前项目独立的 Remotion/React 源码和本地依赖"
+    },
+    {
+      "path": "06-预览与审核",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "小样、关键帧、审核记录和 QA 报告"
+    },
+    {
+      "path": "07-成片",
+      "owner": "codex",
+      "codex_access": "read_write_after_approval",
+      "purpose": "获得明确渲染批准后的最终视频和交付文件"
+    }
+  ],
+  "runtime": {
+    "project_selection": [
+      "优先使用用户明确给出的项目路径",
+      "否则在 本地项目 下寻找项目名完全匹配且含 project.json 的目录",
+      "不能唯一确定当前项目时先询问，不扫描或混用其他项目"
+    ],
+    "read_order": [
+      "project.json",
+      "01-原始素材/05-文稿与字幕",
+      "01-原始素材/01-口播视频",
+      "01-原始素材/02-录屏",
+      "01-原始素材/03-图片与截图",
+      "01-原始素材/04-音频",
+      "01-原始素材/06-授权说明",
+      "01-原始素材/07-背景与动效素材",
+      "effects.json（进入动效、包装或切屏设计时）",
+      "特效与切屏规范.md（进入动效、包装或切屏设计时）",
+      "用户已经批准的阶段产物"
+    ],
+    "source_policy": "01-原始素材 is immutable; never rename, move, overwrite, normalize in place, or delete source files.",
+    "scope_policy": "Read only the selected project plus repository workflow reference files listed in references, unless the user explicitly supplies another path.",
+    "output_policy": "Write every generated artifact to the matching 02-07 stage directory inside the selected project.",
+    "privacy_policy": "Never upload project media, transcripts, credentials, or renders unless the user separately authorizes an exact destination and exact files."
+  },
+  "motion_planning": {
+    "required_reference": "effects.json",
+    "effect_map_output": "04-动效与包装/特效映射.json",
+    "storyboard_output": "04-动效与包装/导演分镜.md",
+    "requirements": [
+      "为每段口播标记语义落点和画面状态",
+      "为每次画面状态变化选择与语义匹配的转场",
+      "录屏、截图、图片和文档优先全屏展示",
+      "素材全屏或标题出现时真人缩到安全角小窗",
+      "字幕只放在主画面并避让真人小窗和关键 UI",
+      "使用 Shotcraft 卡时校验 card、style-key、镜头卡全文和准确 demo TSX"
+    ]
+  },
+  "gates": [
+    {
+      "id": "environment",
+      "approval": "安装依赖",
+      "does_not_authorize": ["读取私人素材", "剪辑", "渲染"]
+    },
+    {
+      "id": "inventory",
+      "approval": "读取并盘点当前项目素材",
+      "does_not_authorize": ["修改原片", "调用付费转录", "渲染"]
+    },
+    {
+      "id": "edit_plan",
+      "approval": "执行口播精剪方案",
+      "does_not_authorize": ["整片包装", "最终渲染"]
+    },
+    {
+      "id": "preview",
+      "approval": "制作指定范围的小样",
+      "does_not_authorize": ["完成整片", "最终渲染"]
+    },
+    {
+      "id": "final_render",
+      "approval": "渲染当前明确版本的成片",
+      "does_not_authorize": ["上传或发布"]
+    }
+  ]
+}

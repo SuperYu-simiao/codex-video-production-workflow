@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Production Bootstrap"
+  short_description: "Set up and structure reusable video projects"
+  default_prompt: "Use $video-production-bootstrap to check the workflow and create an isolated project for my next video."

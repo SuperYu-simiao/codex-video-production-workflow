@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Visual Director"
+  short_description: "Design tech video intros and shot lists"
+  default_prompt: "Design a tech intro and shot list for this video."

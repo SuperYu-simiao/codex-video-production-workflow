@@ -1,0 +1,42 @@
+.DS_Store
+**/.DS_Store
+**/node_modules/
+**/dist/
+**/tmp/
+output/
+
+# Secrets and machine-local Codex state
+**/.env
+**/.env.*
+!**/.env.example
+**/auth.json
+**/*.key
+**/*.pem
+
+# Generated dependency and render output
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/out/
+**/renders/
+**/verify/
+**/review/
+**/review-*/
+**/transcripts/
+
+# The public video package contains Skills and workflow only. Personal projects,
+# source media, renders, references, and old local migrations stay on this Mac.
+/视频项目/
+/旧版项目/
+/本地项目/
+/动效库/
+/视觉规范与参考/
+/临时输出/
+/迁移清单.md
+
+# Third-party checkouts and Codex-managed plugin caches are restored from
+# dependencies.json instead of being copied into the public repository.
+/skills/video-use/
+/skills/video-use.backup-*/
+/插件Skills快照/
+/插件运行时入口/

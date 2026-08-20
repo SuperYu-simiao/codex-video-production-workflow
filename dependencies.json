@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "workflow_id": "summer-video-production",
+  "verified_on": "2026-08-20",
+  "description": "Reproducible dependencies for the public talking-head, Remotion, and Shotcraft workflow package.",
+  "official_codex_skills_documentation": "https://developers.openai.com/codex/skills/",
+  "host": {
+    "required": [
+      "Codex desktop app or Codex CLI",
+      "A GitHub account only when contributing or pushing changes"
+    ],
+    "recommended_hardware": {
+      "cpu": "Apple Silicon or a modern 6-core x86-64 CPU",
+      "memory_gb": 16,
+      "free_disk_gb": 30,
+      "notes": "8 GB can run short previews, but 16 GB or more is recommended for 2K Remotion renders."
+    }
+  },
+  "system_tools": [
+    {
+      "id": "git",
+      "required": true,
+      "command": ["git", "--version"],
+      "minimum_version": "2.30",
+      "install_hint_macos": "xcode-select --install or brew install git"
+    },
+    {
+      "id": "node",
+      "required": true,
+      "command": ["node", "--version"],
+      "minimum_version": "22.0",
+      "install_hint_macos": "brew install node@22"
+    },
+    {
+      "id": "npm",
+      "required": true,
+      "command": ["npm", "--version"],
+      "minimum_version": "10.0",
+      "install_hint_macos": "Installed with Node.js"
+    },
+    {
+      "id": "python3",
+      "required": true,
+      "command": ["python3", "--version"],
+      "minimum_version": "3.10",
+      "install_hint_macos": "brew install python"
+    },
+    {
+      "id": "uv",
+      "required": true,
+      "command": ["uv", "--version"],
+      "minimum_version": "0.5",
+      "install_hint_macos": "brew install uv"
+    },
+    {
+      "id": "ffmpeg",
+      "required": true,
+      "command": ["ffmpeg", "-version"],
+      "minimum_version": null,
+      "install_hint_macos": "brew install ffmpeg"
+    },
+    {
+      "id": "ffprobe",
+      "required": true,
+      "command": ["ffprobe", "-version"],
+      "minimum_version": null,
+      "install_hint_macos": "Installed with FFmpeg"
+    }
+  ],
+  "accounts_and_credentials": [
+    {
+      "id": "codex_account",
+      "required": true,
+      "secret": false,
+      "purpose": "Run the repository workflow in Codex."
+    },
+    {
+      "id": "github_account",
+      "required": false,
+      "secret": false,
+      "purpose": "Only needed to fork, contribute, or push. Public dependencies can be cloned without login."
+    },
+    {
+      "id": "elevenlabs_api_key",
+      "required": false,
+      "secret": true,
+      "environment_variables": ["ELEVENLABS_API_KEY"],
+      "purpose": "Word-level transcription with video-use. Not needed when a cached transcript is supplied."
+    },
+    {
+      "id": "openai_api_key",
+      "required": false,
+      "secret": true,
+      "environment_variables": ["OPENAI_API_KEY"],
+      "purpose": "OpenAI transcription through the bundled transcribe skill."
+    }
+  ],
+  "codex_plugins": [
+    {
+      "id": "remotion@openai-curated-remote",
+      "required": true,
+      "verified_version": "1.0.7",
+      "cache_glob": "**/remotion/*/skills",
+      "install_method": "Open Codex Plugins, search for Remotion, and install it. Plugin versions are managed by Codex."
+    },
+    {
+      "id": "chatcut",
+      "required": false,
+      "verified_version": "0.2.22",
+      "cache_glob": "**/chatcut/*/skills",
+      "install_method": "Install ChatCut in Codex only when an editable ChatCut handoff or export is required."
+    }
+  ],
+  "repo_skills": [
+    {
+      "name": "video-production-bootstrap",
+      "path": ".agents/skills/video-production-bootstrap/SKILL.md",
+      "required": true,
+      "license": "Repository license"
+    },
+    {
+      "name": "ai-visual-director",
+      "path": "skills/ai-visual-director/SKILL.md",
+      "required": true,
+      "license": "Repository license"
+    },
+    {
+      "name": "transcribe",
+      "path": "skills/transcribe/SKILL.md",
+      "required": false,
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "chatcut-handoff",
+      "path": "skills/chatcut/SKILL.md",
+      "required": false,
+      "license": "Repository license"
+    }
+  ],
+  "external_skills": [
+    {
+      "name": "video-use",
+      "required": true,
+      "repository": "https://github.com/browser-use/video-use",
+      "ref": "92c2b34e44c205cbc2acae7f6ca7c1c219d5dd66",
+      "license": "MIT",
+      "install_path": "~/.codex/skills/video-use",
+      "accepted_paths": [
+        "~/.codex/skills/video-use",
+        "${REPO_ROOT}/skills/video-use"
+      ],
+      "post_install": {
+        "kind": "uv_sync",
+        "required": true
+      }
+    },
+    {
+      "name": "video-shotcraft",
+      "required": true,
+      "repository": "https://github.com/Vincentwei1021/video-shotcraft",
+      "ref": "0d6f0b57f0d4d6700761644c07f7ef03c3e50234",
+      "license": "Apache-2.0",
+      "gallery": "https://vincentwei1021.github.io/video-shotcraft/library.html",
+      "purpose": "Skill repository and cinematic shot-recipe library used for motion structure, rhythm, exact demo TSX, Remotion templates, and audio assets.",
+      "inventory_at_ref": {
+        "recipe_cards": 152,
+        "motion_previews": 209
+      },
+      "install_path": "~/.codex/skills/video-shotcraft",
+      "accepted_paths": [
+        "~/.codex/skills/video-shotcraft"
+      ],
+      "post_install": null
+    }
+  ],
+  "optional_tools": [
+    {
+      "name": "HyperFrames",
+      "repository": "https://github.com/heygen-com/hyperframes",
+      "ref": "d09145faabfd3078c29969fbcf293067d50275ac",
+      "license": "Apache-2.0",
+      "install_method": "Use npx --yes hyperframes inside an individual animation slot when needed."
+    },
+    {
+      "name": "Manim Community",
+      "repository": "https://github.com/ManimCommunity/manim",
+      "ref": null,
+      "license": "MIT",
+      "install_method": "Install only for mathematical or technical animation scenes."
+    }
+  ],
+  "workflow": {
+    "definition": "workflow.json",
+    "project_template": "项目模板",
+    "local_projects_root": "本地项目",
+    "create_project_script": ".agents/skills/video-production-bootstrap/scripts/create_video_project.py",
+    "required_files": [
+      "00-先读我.md",
+      "workflow.json",
+      "effects.json",
+      "特效与切屏规范.md",
+      "项目模板/project.json",
+      "项目模板/项目说明.md",
+      ".agents/skills/video-production-bootstrap/scripts/create_video_project.py"
+    ]
+  },
+  "privacy": {
+    "never_commit": [
+      ".env or API keys",
+      "Codex auth.json or config.toml",
+      "raw talking-head footage",
+      "private screen recordings",
+      "transcripts containing private information",
+      "node_modules, virtual environments, renders, and review frames",
+      "fonts, music, images, or footage without redistribution rights"
+    ],
+    "share_demos_via": "Use compressed, rights-cleared samples or GitHub Releases instead of committing production media."
+  }
+}

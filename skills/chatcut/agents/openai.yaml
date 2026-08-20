@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChatCut"
+  short_description: "Prepare editable fine-cut handoff notes"
+  default_prompt: "Prepare a ChatCut-style editable fine-cut plan for this video."
