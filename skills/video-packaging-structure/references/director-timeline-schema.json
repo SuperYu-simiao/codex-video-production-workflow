@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "purpose": "video-use editorial timeline handed to Shotcraft adaptation and Remotion composition",
+  "required_top_level": [
+    "fps",
+    "timing_basis",
+    "timing_confidence",
+    "source_duration_frames",
+    "insertions",
+    "segments"
+  ],
+  "implementation_gate": {
+    "allowed_timing_basis": [
+      "word_aligned_transcript",
+      "sentence_aligned_audio",
+      "manually_verified_audio_cues"
+    ],
+    "planning_only_timing_basis": [
+      "proportional_transcript_estimate"
+    ],
+    "rule": "A planning-only timing basis cannot drive an implementation preview. Verify the approved preview range against the real speech or audio first."
+  },
+  "insertions": [
+    {
+      "id": "bridge-01",
+      "source_at_frame": 0,
+      "duration_frames": 0,
+      "resume_source_frame": 0,
+      "video_behavior": "freeze_or_independent_visual_track",
+      "audio_behavior": "pause_source_audio_and_play_approved_bridge_audio",
+      "effect": {
+        "card": "card-flock-tumble",
+        "style_key": "card-flock-tumble",
+        "demo": "<absolute-path-to-verified-demo-tsx>"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "id": "S01",
+      "transcript_cue": "<approved spoken words>",
+      "source_in_frame": 0,
+      "source_out_frame": 0,
+      "master_in_frame": 0,
+      "master_out_frame": 0,
+      "visual_state": "talking-head-fullscreen",
+      "speaker_state": "P0",
+      "speaker_crop": "<ratio and framing>",
+      "material": {
+        "type": "none",
+        "path": null,
+        "source_url": null,
+        "capture_date": null,
+        "redaction_status": "not_applicable"
+      },
+      "effect": {
+        "card": null,
+        "style_key": null,
+        "card_path": null,
+        "demo_path": null,
+        "approved_component_baseline": null
+      },
+      "caption_region": "main-composition-bottom-safe-band",
+      "audio_behavior": "continuous_source_audio",
+      "stable_read_seconds": 0,
+      "notes_for_editor_only": "<never render this field as audience copy>"
+    }
+  ],
+  "source_to_master_rule": "For each source frame, add the duration of every insertion whose source_at_frame is less than or equal to that frame. Resume source video from the insertion source_at_frame after the inserted segment."
+}

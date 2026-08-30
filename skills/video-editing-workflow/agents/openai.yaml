@@ -1,0 +1,4 @@
+interface:
+  display_name: "Complete Video Editing Workflow"
+  short_description: "Edit, package, subtitle, and QA talking-head videos"
+  default_prompt: "Use $video-editing-workflow to take my talking-head video from transcript and rough cut through packaging, preview, and QA."

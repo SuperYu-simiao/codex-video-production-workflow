@@ -2,6 +2,106 @@
   "schema_version": 1,
   "workflow_id": "summer-video-effects",
   "human_guide": "特效与切屏规范.md",
+  "unified_editing_skill": "skills/video-editing-workflow/SKILL.md",
+  "default_packaging_structure": {
+    "skill": "skills/video-packaging-structure/SKILL.md",
+    "reference": "skills/video-packaging-structure/references/default-structure.md",
+    "talking_head_layout_reference": "skills/video-packaging-structure/references/talking-head-layout-motion.md",
+    "director_timeline_schema": "skills/video-packaging-structure/references/director-timeline-schema.json",
+    "episode5_opening_baseline": "skills/video-packaging-structure/references/episode5-opening-baseline.md",
+    "style_index": "视觉规范与参考/风格库索引.md",
+    "portable_style_baseline": "skills/video-packaging-structure/references/style-library-2-public-baseline.md",
+    "stage_gate": "Write the packaging documents before editing, public screenshot capture, preview, or rendering unless the user explicitly authorizes a later stage.",
+    "required_outputs": [
+      "04-动效与包装/包装方案-<slug>.md",
+      "04-动效与包装/需要补录的操作素材-<slug>.md",
+      "04-动效与包装/工具官网-GitHub截图素材表-<slug>.md",
+      "04-动效与包装/特效映射-<slug>.json"
+    ],
+    "required_cues": [
+      {
+        "cue": "small_chapter_title_transition",
+        "card": "aurora-bloom-bg-flip",
+        "style": "aurora-bloom-bg-flip",
+        "use": "Flip into the new small chapter title and leave a readable hold."
+      },
+      {
+        "cue": "tool_or_skill_name",
+        "card": "assemble-then-type-flyin",
+        "style": "assemble-then-type-flyin",
+        "use": "Assemble a tool card; place a public landing page, GitHub home, or official logo in the right frame."
+      },
+      {
+        "cue": "spoken_step_name",
+        "card": "autolayout-gap-dial",
+        "style": "autolayout-gap-dial",
+        "use": "Connect named steps in a readable parameter/spacing chain."
+      },
+      {
+        "cue": "opening_concluding_proposition",
+        "card": "logo-shrink-wordmark-lockup",
+        "style": "logo-shrink-wordmark-lockup",
+        "use": "Full-screen real brand lockup, adapted from the card's outro role."
+      },
+      {
+        "cue": "opening_lockup_to_bridge",
+        "card": "card-flock-tumble",
+        "style": "card-flock-tumble",
+        "use": "Pause or hold the opening, then bridge with the card-flock motion, approved music, and the real brand mark."
+      }
+    ],
+    "optional_cues": [
+      {
+        "cue": "first_product_name_ui_tour",
+        "card": "graze-face-tour",
+        "style": "graze-face-tour",
+        "use": "Tour a real public product-page screenshot near the first product-name mention."
+      },
+      {
+        "cue": "opening_transparent_keyword_overlay",
+        "card": "gradient-word-sweep",
+        "style": "gradient-word-sweep",
+        "use": "Transparent or masked keyword overlay that leaves the person visible."
+      },
+      {
+        "cue": "opening_background_text_layer",
+        "card": "neon-triple-marquee",
+        "style": "neon-triple-marquee",
+        "use": "Transparent or masked layer behind the person; default copy is 人物、字幕、信息、画面和这些动效."
+      },
+      {
+        "cue": "opening_background_keyword_depth",
+        "card": "flying-words",
+        "style": "flying-words",
+        "use": "Transparent or masked keyword depth layer behind the person."
+      },
+      {
+        "cue": "copyable_prompt_code_or_instruction",
+        "card": "document-typewriter-reveal",
+        "style": "document-typewriter-reveal",
+        "use": "Reveal exact supplied text in a readable document layout."
+      },
+      {
+        "cue": "product_website_card_group",
+        "card": "runway-ground-skim",
+        "style": "runway-ground-skim",
+        "use": "Drop and settle a real UI card group, then stop for reading."
+      },
+      {
+        "cue": "product_website_skeleton_to_content",
+        "card": "skeleton-reveal",
+        "style": "skeleton-reveal",
+        "use": "Reveal a real UI from sketch or skeleton to content; keep layouts congruent."
+      }
+    ],
+    "production_chain": [
+      "video-use owns the verified transcript, editorial timing, source-to-master mapping, speaker states, captions, and insertions.",
+      "video-shotcraft supplies the validated card, style-key, complete card guidance, and exact demo implementation.",
+      "Remotion composes approved source, speaker/matte, background, effect, material, caption, music, and SFX tracks."
+    ],
+    "implementation_prerequisite": "Create 02-转录与剪辑决策/导演时间线-<slug>.json from the director timeline schema. A proportional transcript estimate is planning-only and cannot drive an implementation preview.",
+    "verification": "For every selected card, validate card and style-key in the installed Shotcraft Gallery, read the full card and exact reference demo TSX, and adapt the motion to the current project. If the user requests the approved Episode 5 opening language, read and reuse its component baseline instead of rewriting a same-name approximation."
+  },
   "shot_library": {
     "name": "video-shotcraft",
     "repository": "https://github.com/Vincentwei1021/video-shotcraft",
@@ -43,6 +143,26 @@
       "pip_present_safe_width_percent": 68,
       "move_when_conflicting_with_ui": true
     },
+    "code_prompt_panel": {
+      "applies_to": ["code", "prompt", "shell command", "instruction block", "configuration snippet"],
+      "layout": "large readable panel on the left or center, talking-head PIP in a safe right-side area",
+      "panel_width_percent_range": [62, 66],
+      "talking_head_width_percent_range": [22, 25],
+      "column_gap_percent": 3,
+      "outer_margin_percent_range": [4, 6],
+      "body_font": "monospace for code and commands; readable UI sans-serif for prose prompts and Chinese instructions",
+      "content_policy": [
+        "Use the exact source text supplied by the script or project material; never invent or silently rewrite copyable content.",
+        "Preserve indentation, line breaks, punctuation, capitalization, flags, and placeholders.",
+        "Wrap at semantic boundaries and never reduce the type until it becomes hard to read.",
+        "Use one static page for up to 8 lines, 2-3 paged semantic blocks for 9-16 lines, and a key excerpt plus an explicitly approved full-text destination for longer content.",
+        "Highlight only the line or phrase currently being spoken; keep the rest stable.",
+        "Reserve a caption-safe band and never place captions over copyable text."
+      ],
+      "entry_frames_at_30fps": [12, 18],
+      "minimum_settle_seconds": 1.5,
+      "avoid": ["continuous scrolling", "decorative fake code", "character-by-character typing for long blocks", "tiny text", "simultaneous high-energy motion"]
+    },
     "settle_after_primary_motion_seconds": [0.8, 1.5]
   },
   "states": [
@@ -63,6 +183,12 @@
       "trigger": ["screen recording", "screenshot", "image", "document", "visual evidence"],
       "main": "supporting material fullscreen and readable",
       "talking_head": "bottom-right PIP or another safe corner"
+    },
+    {
+      "id": "code-prompt-stage",
+      "trigger": ["exact code", "copyable prompt", "shell command", "step-by-step instruction", "configuration snippet"],
+      "main": "large readable code or prompt panel with an optional type label, concise title, and copy cue",
+      "talking_head": "right-side PIP or another safe area that does not reduce panel readability"
     },
     {
       "id": "split-dialogue-canvas",
@@ -101,6 +227,11 @@
         "preferred": ["tilt-reveal", "mosaic-reframe", "line-carry-transition"]
       },
       {
+        "from": "any",
+        "to": "code-prompt-stage",
+        "preferred": ["line-carry-transition", "tilt-reveal", "flash-cut"]
+      },
+      {
         "from": "title-stage",
         "to": "material-fullscreen",
         "preferred": ["mosaic-reframe", "cube-navigation", "paper-plane-messenger"]
@@ -112,6 +243,21 @@
       },
       {
         "from": "material-fullscreen",
+        "to": "talking-head-fullscreen",
+        "preferred": ["glow-wake-sleep-panel", "line-carry-transition", "flash-cut"]
+      },
+      {
+        "from": "code-prompt-stage",
+        "to": "code-prompt-stage",
+        "preferred": ["line-carry-transition", "flash-cut"]
+      },
+      {
+        "from": "code-prompt-stage",
+        "to": "material-fullscreen",
+        "preferred": ["line-carry-transition", "mosaic-reframe"]
+      },
+      {
+        "from": "code-prompt-stage",
         "to": "talking-head-fullscreen",
         "preferred": ["glow-wake-sleep-panel", "line-carry-transition", "flash-cut"]
       },
@@ -268,6 +414,29 @@
         "use": "move generated rows or panel content onto an open canvas"
       }
     ],
+    "code_prompt_and_instruction": [
+      {
+        "card": "glass-pill-dictation-typing",
+        "style": "glass-pill-dictation-typing",
+        "source": "references/shots/interaction/glass-pill-dictation-typing.md",
+        "demo": "demos/interaction/glass-pill-dictation-typing/GlassPillDictationTyping.tsx",
+        "use": "short prompt entry or a compact instruction being entered; settle to a static readable panel immediately after entry"
+      },
+      {
+        "card": "dashboard-glow-highlight-pill",
+        "style": "dashboard-glow-highlight-pill",
+        "source": "references/shots/effects/dashboard-glow-highlight-pill.md",
+        "demo": "template/src/aifl/live/SceneOpen.tsx",
+        "use": "highlight the exact code line, flag, placeholder, or prompt phrase currently named in speech"
+      },
+      {
+        "card": "line-carry-transition",
+        "style": "line-carry-transition",
+        "source": "references/shots/transition/line-carry-transition.md",
+        "demo": "demos/transition/line-carry-transition/LineCarryTransition.tsx",
+        "use": "draw the panel boundary into the scene or carry the active line into the next visual state"
+      }
+    ],
     "closing_and_return": [
       {
         "card": "spotlight-sweep-moves",
@@ -298,8 +467,9 @@
   ],
   "selection_algorithm": [
     "Finish transcript-based mistake and pause removal before motion timing.",
-    "Mark the spoken semantic cues for names, claims, demonstrations, evidence, collaboration, and returns to the speaker.",
-    "Assign one of the four visual states to every segment.",
+    "Mark the spoken semantic cues for names, claims, demonstrations, evidence, exact code or prompts, collaboration, and returns to the speaker.",
+    "Extract copyable code, prompts, commands, and instructions exactly from the script or approved project material before designing their panels.",
+    "Assign one of the five visual states to every segment.",
     "Assign a transition to every state change and a clean jump cut only to same-state speech cleanup.",
     "Choose one primary effect whose meaning matches the spoken cue; do not repeat an effect back-to-back.",
     "Keep recordings and screenshots fullscreen and readable, with the speaker in a safe-corner PIP.",

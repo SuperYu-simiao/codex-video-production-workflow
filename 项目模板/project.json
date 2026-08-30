@@ -10,10 +10,13 @@
   "paths": {
     "source": "01-原始素材",
     "transcript_and_edit_decisions": "02-转录与剪辑决策",
+    "transcript_cache": "02-转录与剪辑决策/转录缓存",
     "fine_cut": "03-精剪输出",
+    "short_proxies": "03-精剪输出/代理片段",
     "motion_and_packaging": "04-动效与包装",
     "remotion_project": "05-Remotion工程",
     "review": "06-预览与审核",
+    "review_keyframes": "06-预览与审核/关键帧",
     "final": "07-成片"
   },
   "user_requirements": {

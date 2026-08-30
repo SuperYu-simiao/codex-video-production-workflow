@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "workflow_id": "summer-video-production",
-  "verified_on": "2026-08-20",
+  "verified_on": "2026-08-22",
   "description": "Reproducible dependencies for the public talking-head, Remotion, and Shotcraft workflow package.",
   "official_codex_skills_documentation": "https://developers.openai.com/codex/skills/",
   "host": {
@@ -119,8 +119,20 @@
       "license": "Repository license"
     },
     {
+      "name": "video-editing-workflow",
+      "path": "skills/video-editing-workflow/SKILL.md",
+      "required": true,
+      "license": "Repository license"
+    },
+    {
       "name": "ai-visual-director",
       "path": "skills/ai-visual-director/SKILL.md",
+      "required": true,
+      "license": "Repository license"
+    },
+    {
+      "name": "video-packaging-structure",
+      "path": "skills/video-packaging-structure/SKILL.md",
       "required": true,
       "license": "Repository license"
     },
@@ -201,7 +213,25 @@
       "特效与切屏规范.md",
       "项目模板/project.json",
       "项目模板/项目说明.md",
-      ".agents/skills/video-production-bootstrap/scripts/create_video_project.py"
+      "项目模板/Remotion/remotion.config.ts",
+      "项目模板/Remotion/.vscode/settings.json",
+      "项目模板/Remotion/config/video.config.example.json",
+      "tools/remotion-editor/package.json",
+      "tools/remotion-editor/package-lock.json",
+      "tools/remotion-editor/src/types.ts",
+      "tools/remotion-editor/src/default-config.ts",
+      "tools/remotion-editor/src/remotion/EditableComposition.tsx",
+      "tools/remotion-editor/src/App.tsx",
+      ".vscode/settings.json",
+      ".agents/skills/video-production-bootstrap/scripts/create_video_project.py",
+      ".agents/skills/video-production-bootstrap/scripts/create_short_proxy.py",
+      ".agents/skills/video-production-bootstrap/scripts/batch_extract_frames.py",
+      ".agents/skills/video-production-bootstrap/scripts/check_render_processes.py",
+      ".agents/skills/video-production-bootstrap/scripts/install_workflow.py",
+      ".agents/skills/video-production-bootstrap/scripts/validate_subtitles.py",
+      "skills/video-editing-workflow/SKILL.md",
+      "skills/video-editing-workflow/agents/openai.yaml",
+      "skills/video-packaging-structure/references/style-library-2-public-baseline.md"
     ]
   },
   "privacy": {

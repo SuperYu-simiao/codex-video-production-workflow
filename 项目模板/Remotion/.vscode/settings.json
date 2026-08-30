@@ -1,0 +1,22 @@
+{
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/out/**": true,
+    "**/renders/**": true,
+    "**/.cache/**": true,
+    "**/.parcel-cache/**": true,
+    "**/.remotion/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/out": true,
+    "**/renders": true,
+    "**/.cache": true,
+    "**/.parcel-cache": true,
+    "**/.remotion": true
+  }
+}

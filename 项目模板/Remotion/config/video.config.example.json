@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "title": "当前视频包装配置",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationInFrames": 1,
+  "backgroundColor": "#111416",
+  "assets": [],
+  "scenes": [
+    {
+      "id": "scene-01",
+      "title": "待填写场景标题",
+      "assetId": "asset-01",
+      "layout": "fullscreen",
+      "effect": "none",
+      "effectIntensity": 0.5,
+      "pipScale": 0.24,
+      "from": 0,
+      "durationInFrames": 1,
+      "visible": true
+    }
+  ]
+}

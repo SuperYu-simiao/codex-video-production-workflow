@@ -1,0 +1,34 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.cache/**": true,
+    "**/.parcel-cache/**": true,
+    "**/.remotion/**": true,
+    "**/本地项目/**": true,
+    "**/视频项目/**": true,
+    "**/旧版项目/**": true,
+    "**/动效库/**": true,
+    "**/临时输出/**": true,
+    "**/插件Skills快照/**": true,
+    "**/插件运行时入口/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.cache": true,
+    "**/.parcel-cache": true,
+    "**/.remotion": true,
+    "**/本地项目": true,
+    "**/视频项目": true,
+    "**/旧版项目": true,
+    "**/动效库": true,
+    "**/临时输出": true,
+    "**/插件Skills快照": true,
+    "**/插件运行时入口": true
+  }
+}

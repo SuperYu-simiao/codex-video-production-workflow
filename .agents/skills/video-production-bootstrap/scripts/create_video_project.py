@@ -68,6 +68,8 @@ def main() -> int:
         print("  项目说明.md")
         for relative_path in directories:
             print(f"  {relative_path}/")
+        for item in workflow.get("project_template_files", []):
+            print(f"  {item['destination']}")
         return 0
 
     template_root = repo_root / workflow["project_template"]
@@ -85,6 +87,17 @@ def main() -> int:
             render_template(template_root / "项目说明.md", project_name, created_at),
             encoding="utf-8",
         )
+        for item in workflow.get("project_template_files", []):
+            source = template_root / item["source"]
+            destination = staging / item["destination"]
+            if not source.is_file():
+                raise FileNotFoundError(f"Project template file does not exist: {source}")
+            if destination.exists():
+                raise FileExistsError(f"Project template destination already exists: {destination}")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(
+                render_template(source, project_name, created_at), encoding="utf-8"
+            )
         os.replace(staging, target)
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)

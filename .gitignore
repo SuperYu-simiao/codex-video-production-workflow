@@ -2,6 +2,11 @@
 **/.DS_Store
 **/node_modules/
 **/dist/
+**/build/
+**/coverage/
+**/.cache/
+**/.parcel-cache/
+**/.remotion/
 **/tmp/
 output/
 
@@ -17,12 +22,21 @@ output/
 **/.venv/
 **/__pycache__/
 **/*.pyc
+**/*.tsbuildinfo
 **/out/
 **/renders/
 **/verify/
 **/review/
 **/review-*/
 **/transcripts/
+
+# Stage-specific local media and generated artifacts. These rules only affect
+# Git; editor and Remotion watcher exclusions are configured separately.
+**/01-原始素材/**
+**/02-转录与剪辑决策/转录缓存/**
+**/03-精剪输出/代理片段/**
+**/06-预览与审核/**
+**/07-成片/**
 
 # The public video package contains Skills and workflow only. Personal projects,
 # source media, renders, references, and old local migrations stay on this Mac.

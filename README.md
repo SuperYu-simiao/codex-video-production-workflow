@@ -1,34 +1,70 @@
 # Codex 视频剪辑工作流
 
-这里公开的是可复用的 Skills、安装清单、项目目录模板、特效规范和操作流程，不包含作者自己的视频工程、原片、录屏、转录、成片、旧版项目、私人风格参考或本机插件缓存。
+这里集中保存可复用的 Skills、安装清单、项目目录模板、特效规范和操作流程。个人视频工程、素材、动效库、旧版项目和缓存可以放在同一总文件夹中，但都由 Git 忽略，不会进入公开仓库。
 
-第一次使用从 [`00-先读我.md`](00-先读我.md) 开始。Codex 的机器入口是仓库根目录下的 `.agents/skills/video-production-bootstrap/`。
+克隆后的目录就是工作流根目录；除非用户另外明确要求，不提交、不推送，也不上传任何项目、素材或成片。
 
-## 公开内容
+第一次使用从 [`00-先读我.md`](00-先读我.md) 开始。Codex 的机器入口是本地项目根目录下的 `.agents/skills/video-production-bootstrap/`。
+
+## 工作流核心文件
 
 - `00-先读我.md`：从下载到开始第一条视频的操作说明。
 - `workflow.json`：Codex 读取的目录规划、素材入口、输出目录和阶段规则。
 - `effects.json`：Codex 读取的画面状态、特效卡、切屏矩阵和组合规则。
 - `特效与切屏规范.md`：开头动效、真人小窗、素材全屏、字幕和过程动效说明。
 - `dependencies.json`：系统工具、账号、插件和外部 GitHub Skill 固定版本。
+- `skills/video-editing-workflow/`：完整剪辑统一入口，串起 `video-use → video-shotcraft → Remotion`、字幕、包装、预览和 QA。
 - `项目模板/`：每条新视频的空白项目配置与说明。
+- `skills/video-packaging-structure/`：每期视频先产出包装方案、素材缺口、公开身份素材表和特效映射的默认结构 Skill。
 - `skills/ai-visual-director/`：视觉分析、动效规划和导演分镜。
 - `skills/chatcut/`：需要可编辑工程时的交付流程。
 - `skills/transcribe/`：可选的 OpenAI 转录流程。
+- `tools/remotion-editor/`：通用的本地包装组件编辑器原型，用 `@remotion/player` 实时预览并保存 `video.config.json`。
 - `THIRD_PARTY_NOTICES.md`：第三方来源和许可证。
 
-`video-use` 与 [`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft) 不复制进仓库，由安装脚本按照 `dependencies.json` 中的固定 commit 下载。后者提供 Shotcraft 镜头配方、动态 Gallery、准确 demo TSX、Remotion 模板和音频资产；本工作流参考其镜头结构、运动语法、节奏和实现代码，并按每个用户的素材重新适配。
+本机的 `video-use` 位于 `skills/video-use/`；[`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft) 由安装脚本按照 `dependencies.json` 中的固定 commit 管理。后者提供 Shotcraft 镜头配方、动态 Gallery、准确 demo TSX、Remotion 模板和音频资产；本工作流参考其镜头结构、运动语法、节奏和实现代码，并按每个用户的素材重新适配。
 
-## 快速开始
+## 一键安装工作流 Skill
 
-克隆仓库：
+克隆后，在仓库根目录执行下面的命令，会把统一入口链接到 Codex，并安装 `dependencies.json` 中固定版本的 `video-use` 与 `video-shotcraft`：
 
 ```bash
 git clone https://github.com/SuperYu-simiao/codex-video-production-workflow.git
 cd codex-video-production-workflow
+python3 .agents/skills/video-production-bootstrap/scripts/install_workflow.py --all
 ```
 
-在仓库根目录打开 Codex，然后说：
+如果只需要先接入本仓库的统一 Skill，不安装外部依赖：
+
+```bash
+python3 .agents/skills/video-production-bootstrap/scripts/install_workflow.py --install
+```
+
+安装脚本不会安装 Homebrew、插件或凭据，不会复制视频素材，也不会覆盖已有的非 Skill 路径。安装后在 Codex 中直接说“使用 `$video-editing-workflow` 完成这条口播视频”，再提供当前项目路径即可。
+
+## 可编辑包装组件编辑器
+
+仓库根目录的 `tools/remotion-editor/` 是独立的本地编辑器，不绑定任何一期视频，也不包含私人素材。它支持切换素材槽位、修改标题、切换人物/素材布局、切换转场、调整特效强度、调整 PIP 大小和场景时间，并通过 `@remotion/player` 实时预览。点击“保存配置”会下载 `video.config.json`；接入具体视频时，把它放入该项目的 `05-Remotion工程/config/`。
+
+启动方式：
+
+```bash
+cd tools/remotion-editor
+npm install
+npm run dev
+```
+
+这个编辑器负责包装参数，不替代口播精剪、转录和最终渲染审批。完整边界见 [`tools/remotion-editor/README.md`](tools/remotion-editor/README.md)。
+
+## 快速开始
+
+直接进入本地项目：
+
+```bash
+cd codex-video-production-workflow
+```
+
+在这个目录打开 Codex，然后说：
 
 ```text
 请读取 00-先读我.md、workflow.json 和 dependencies.json，
@@ -48,6 +84,13 @@ python3 .agents/skills/video-production-bootstrap/scripts/check_dependencies.py
 python3 .agents/skills/video-production-bootstrap/scripts/install_dependencies.py --install
 ```
 
+需要检查字幕结构时：
+
+```bash
+python3 .agents/skills/video-production-bootstrap/scripts/validate_subtitles.py \
+  --srt '/绝对路径/当前项目/01-原始素材/05-文稿与字幕/字幕.srt'
+```
+
 ## 每条视频新建一个项目
 
 不要把素材放进 `skills/`、仓库根目录或其他人的示例目录。开始一条新视频时运行：
@@ -57,7 +100,7 @@ python3 .agents/skills/video-production-bootstrap/scripts/create_video_project.p
   --name "产品功能演示"
 ```
 
-项目会创建在 `本地项目/产品功能演示/`。`本地项目/` 已被 Git 忽略，不会随着工作流上传。
+项目会创建在 `本地项目/产品功能演示/`。`本地项目/` 已被 Git 忽略，只保留在本机。
 
 创建后，把文件放入：
 
@@ -72,9 +115,23 @@ python3 .agents/skills/video-production-bootstrap/scripts/create_video_project.p
 └── 07-背景与动效素材/
 ```
 
-Codex 运行时先读取当前项目的 `project.json`，再只扫描当前项目的 `01-原始素材/`。原始素材始终只读；转录、精剪、包装、预览和成片分别写入 `02` 到 `07` 的目录。
+总文件夹统一保存视频项目、旧项目、动效库和本地输出；它们保持原位，不因一条新视频迁移或删除。Codex 运行时先读取用户明确指定的当前项目 `project.json`，再只扫描该项目的 `01-原始素材/`，不枚举其他视频项目、旧项目或整个动效库。原始素材始终只读；转录、精剪、包装、预览和成片分别写入当前项目的 `02` 到 `07` 目录。
 
-制作包装时，Codex 还会读取 [`effects.json`](effects.json) 和 [`特效与切屏规范.md`](特效与切屏规范.md)：产品名和章节标题进入黑灰科技网格标题舞台；录屏、截图和图片铺满主画面；真人口播缩到右下角；字幕始终放在主画面；任何画面状态变化都使用与语义匹配的转场。
+制作包装时，Codex 先读取 [`skills/video-packaging-structure/SKILL.md`](skills/video-packaging-structure/SKILL.md)，再读取 [`effects.json`](effects.json) 和 [`特效与切屏规范.md`](特效与切屏规范.md)。默认结构是：小标题用 `aurora-bloom-bg-flip`，工具/Skill 名称用 `assemble-then-type-flyin`，步骤名用 `autolayout-gap-dial`，开头结论句用 `logo-shrink-wordmark-lockup` 后接 `card-flock-tumble` 桥接；透明开头层、文档文字和产品网站镜头按语义选择。每期先在项目 `04-动效与包装/` 写完四份规划文档，再等待对应确认，不直接剪辑或渲染。
+
+## 剪辑效率工具
+
+工具位于 `.agents/skills/video-production-bootstrap/scripts/`：
+
+- `create_short_proxy.py`：原片只读，只转码明确的 `--start` 到 `--end` 区间，默认输出到当前项目 `03-精剪输出/代理片段/`；每个代理有 `.proxy.json` 回连清单。
+- `batch_extract_frames.py`：从已存在预览用一次 FFmpeg 进程抽取多个 `--time`，输出到 `06-预览与审核/关键帧/` 并生成 JSON 索引；不会启动 Remotion。
+- `check_render_processes.py`：只列出命令或工作目录关联当前项目路径的 Remotion、FFmpeg、Chromium、渲染 Node 进程；完全只读，不提供终止功能。
+
+前两个工具默认 dry-run，必须显式添加 `--execute` 才会写当前项目。三者都必须传 `--project`，且生成代理、抽帧、查进程不等于剪辑、预览渲染、最终渲染或结束进程授权。完整命令见 [`00-先读我.md`](00-先读我.md)。
+
+## 排除机制
+
+`.gitignore` 只控制 Git；仓库根和新项目中的 `.vscode/settings.json` 才使用 VS Code 原生 watcher/search 排除；新项目 `05-Remotion工程/remotion.config.ts` 使用 Remotion 官方 Webpack override 设置当前项目的 `watchOptions.ignored`。Node 没有通用 watcher 排除项，因此运行入口限定在当前项目的 `05-Remotion工程/`，共享动效库只按当前项目明确引用进入依赖图，不做整库扫描。
 
 ## 设备与账号
 
@@ -88,10 +145,6 @@ Codex 运行时先读取当前项目的 `project.json`，再只扫描当前项�
 
 API Key 只放在本机环境变量或未提交的 `.env`，可参考 `.env.example`。完整版本、来源和用途以 `dependencies.json` 为准。
 
-## 发布边界
+## 本地使用边界
 
-可以上传：工作流文档、JSON 清单、项目模板、repo Skills、安装与检查脚本、许可证声明。
-
-不要上传：`视频项目/`、`旧版项目/`、`本地项目/`、`动效库/`、`视觉规范与参考/`、原片、录屏、转录、成片、`.env`、凭据、第三方仓库副本、插件缓存、`node_modules` 和渲染缓存。
-
-本机原有内容不会被删除，只会被 Git 忽略。正式提交前仍须逐项检查 staged diff，禁止使用 `git add -A` 或 `git add .`。
+默认不提交、不推送、不上传。`视频项目/`、`旧版项目/`、`本地项目/`、`动效库/`、`视觉规范与参考/`、原片、录屏、转录、成片、`.env`、凭据、第三方项目副本、插件缓存、`node_modules` 和渲染缓存均由 Git 忽略并保留在本机。

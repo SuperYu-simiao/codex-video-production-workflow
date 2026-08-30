@@ -7,7 +7,15 @@
   "references": {
     "dependencies": "dependencies.json",
     "effects": "effects.json",
-    "effects_human_guide": "特效与切屏规范.md"
+    "effects_human_guide": "特效与切屏规范.md",
+    "unified_editing_skill": "skills/video-editing-workflow/SKILL.md",
+    "default_packaging_skill": "skills/video-packaging-structure/SKILL.md",
+    "default_packaging_reference": "skills/video-packaging-structure/references/default-structure.md",
+    "talking_head_layout_reference": "skills/video-packaging-structure/references/talking-head-layout-motion.md",
+    "director_timeline_schema": "skills/video-packaging-structure/references/director-timeline-schema.json",
+    "episode5_opening_baseline": "skills/video-packaging-structure/references/episode5-opening-baseline.md",
+    "style_index": "视觉规范与参考/风格库索引.md",
+    "portable_style_baseline": "skills/video-packaging-structure/references/style-library-2-public-baseline.md"
   },
   "create_command": [
     "python3",
@@ -15,6 +23,46 @@
     "--name",
     "<项目名称>"
   ],
+  "project_template_files": [
+    {
+      "source": "Remotion/remotion.config.ts",
+      "destination": "05-Remotion工程/remotion.config.ts",
+      "purpose": "Remotion Webpack watcher exclusions scoped to the current project"
+    },
+    {
+      "source": "Remotion/.vscode/settings.json",
+      "destination": "05-Remotion工程/.vscode/settings.json",
+      "purpose": "VS Code watcher and search exclusions when the current Remotion directory is opened directly"
+    },
+    {
+      "source": "Remotion/config/video.config.example.json",
+      "destination": "05-Remotion工程/config/video.config.example.json",
+      "purpose": "Editable packaging configuration contract for the reusable local Remotion editor"
+    }
+  ],
+  "editor": {
+    "path": "tools/remotion-editor",
+    "start_command": ["npm", "run", "dev"],
+    "default_port": 5178,
+    "purpose": "Local Player-based packaging editor for assets, titles, layouts, transitions, effects, and scene timing",
+    "config_location": "<current-project>/05-Remotion工程/config/video.config.json",
+    "does_not_authorize": ["editing source media", "final rendering", "uploading"]
+  },
+  "unified_editing_skill": {
+    "path": "skills/video-editing-workflow/SKILL.md",
+    "install_command": [
+      "python3",
+      ".agents/skills/video-production-bootstrap/scripts/install_workflow.py",
+      "--all"
+    ],
+    "routes": [
+      "video-use",
+      "video-shotcraft",
+      "Remotion",
+      "skills/video-packaging-structure"
+    ],
+    "purpose": "Single discoverable entry point from rough talking-head footage through transcript alignment, packaging, preview, and final QA"
+  },
   "new_project_when": [
     "开始一条新的独立视频",
     "主要口播、主题或最终交付物发生变化",
@@ -76,10 +124,22 @@
       "purpose": "转录缓存、字幕、口误卡顿标记、EDL 和精剪方案"
     },
     {
+      "path": "02-转录与剪辑决策/转录缓存",
+      "owner": "codex",
+      "codex_access": "read_write",
+      "purpose": "当前项目可复用但不进入 Git 或文件搜索的转录缓存"
+    },
+    {
       "path": "03-精剪输出",
       "owner": "codex",
       "codex_access": "read_write",
       "purpose": "不覆盖原片的精剪视频、音频和字幕"
+    },
+    {
+      "path": "03-精剪输出/代理片段",
+      "owner": "codex",
+      "codex_access": "read_write_after_explicit_tool_request",
+      "purpose": "仅为明确时间范围生成的短代理及逐片段回连清单"
     },
     {
       "path": "04-动效与包装",
@@ -98,6 +158,12 @@
       "owner": "codex",
       "codex_access": "read_write",
       "purpose": "小样、关键帧、审核记录和 QA 报告"
+    },
+    {
+      "path": "06-预览与审核/关键帧",
+      "owner": "codex",
+      "codex_access": "read_write_after_explicit_tool_request",
+      "purpose": "从已存在预览以单次 FFmpeg 任务抽取的关键帧及索引"
     },
     {
       "path": "07-成片",
@@ -126,16 +192,58 @@
       "用户已经批准的阶段产物"
     ],
     "source_policy": "01-原始素材 is immutable; never rename, move, overwrite, normalize in place, or delete source files.",
-    "scope_policy": "Read only the selected project plus repository workflow reference files listed in references, unless the user explicitly supplies another path.",
+    "scope_policy": "The repository root is the local collection folder, but runtime reads only the explicitly selected project plus repository workflow reference files listed in references. Do not scan another video project, an old project, the whole motion library, or unrelated paths. An explicit user-supplied source or preview file may be read only for the current operation.",
     "output_policy": "Write every generated artifact to the matching 02-07 stage directory inside the selected project.",
     "privacy_policy": "Never upload project media, transcripts, credentials, or renders unless the user separately authorizes an exact destination and exact files."
   },
+  "efficiency_tools": {
+    "authorization_policy": "Proxy generation, frame extraction, and process inspection are separate operations. None authorizes editing, Remotion preview rendering, final rendering, process termination, upload, or publication.",
+    "short_proxy": {
+      "script": ".agents/skills/video-production-bootstrap/scripts/create_short_proxy.py",
+      "default_output": "03-精剪输出/代理片段",
+      "default_mode": "dry-run",
+      "execute_flag": "--execute",
+      "manifest": "One .proxy.json sidecar per proxy, containing the absolute source path and source in/out range for relinking"
+    },
+    "batch_keyframes": {
+      "script": ".agents/skills/video-production-bootstrap/scripts/batch_extract_frames.py",
+      "default_output": "06-预览与审核/关键帧",
+      "default_mode": "dry-run",
+      "execute_flag": "--execute",
+      "requires_existing_preview": true,
+      "starts_remotion": false
+    },
+    "render_process_check": {
+      "script": ".agents/skills/video-production-bootstrap/scripts/check_render_processes.py",
+      "scope": "Only suspected render processes whose command or working directory matches the exact current project path",
+      "read_only": true,
+      "supports_termination": false
+    }
+  },
+  "scan_and_build_exclusions": {
+    "git": ".gitignore excludes local project roots, old projects, the motion library, source media, proxies, transcript caches, review frames, renders, dependencies, and common build output.",
+    "editor": ".vscode/settings.json uses VS Code's supported files.watcherExclude and search.exclude settings for heavy local-only paths.",
+    "remotion_webpack": "Each newly created project's 05-Remotion工程/remotion.config.ts uses Config.overrideWebpackConfig() and Webpack watchOptions.ignored for immutable or generated directories inside that current project.",
+    "node": "Node.js has no universal watcher exclusion setting. Run commands from the current project's 05-Remotion工程; Node and Remotion bundle only imported modules. Configure a different project-specific watcher only if that project actually introduces one.",
+    "unreferenced_motion_library": "The shared 动效库 remains outside the current Remotion project and must not be enumerated or imported wholesale. Only an explicitly selected asset or module may be referenced; unreferenced files are outside the bundler dependency graph."
+  },
   "motion_planning": {
     "required_reference": "effects.json",
-    "effect_map_output": "04-动效与包装/特效映射.json",
-    "storyboard_output": "04-动效与包装/导演分镜.md",
+    "required_skill": "skills/video-packaging-structure/SKILL.md",
+    "effect_map_output": "04-动效与包装/特效映射-<slug>.json",
+    "storyboard_output": "04-动效与包装/包装方案-<slug>.md",
+    "material_gap_output": "04-动效与包装/需要补录的操作素材-<slug>.md",
+    "public_identity_asset_output": "04-动效与包装/工具官网-GitHub截图素材表-<slug>.md",
+    "compatibility_outputs": [
+      "04-动效与包装/特效映射.json",
+      "04-动效与包装/导演分镜.md"
+    ],
     "requirements": [
       "为每段口播标记语义落点和画面状态",
+      "为每段设计人物构图与转场轨：P0/P1-L/P1-R/P2-*/P3 状态、归一化 x/y/width/height、裁剪比例、手势保留、图层顺序、进入/落定/退出、稳定时长和字幕安全区",
+      "人物构图只在语义状态变化处调整；同一口播保持人物视频和音轨连续，通过裁剪、遮罩、缩放、位置和层级变化完成重构",
+      "扫描口播稿中的代码、提示词、命令、配置和分步指令；只有存在可复制原文时才使用 code-prompt-stage",
+      "代码框逐字使用项目提供的原文，保留缩进、换行、参数和占位符，长内容按语义分页而不是缩成小字",
       "为每次画面状态变化选择与语义匹配的转场",
       "录屏、截图、图片和文档优先全屏展示",
       "素材全屏或标题出现时真人缩到安全角小窗",
