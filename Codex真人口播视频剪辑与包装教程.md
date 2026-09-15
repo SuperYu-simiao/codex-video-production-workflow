@@ -148,7 +148,7 @@ video-use 做导演和时间线
 请使用 $video-production-bootstrap 检查这个本地项目的视频环境。
 
 请先读取：
-- 00-先读我.md
+- docs/00-先读我.md
 - workflow.json
 - dependencies.json
 

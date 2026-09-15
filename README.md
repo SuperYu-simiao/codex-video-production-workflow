@@ -4,11 +4,11 @@
 
 克隆后的目录就是工作流根目录；除非用户另外明确要求，不提交、不推送，也不上传任何项目、素材或成片。
 
-第一次使用从 [`00-先读我.md`](00-先读我.md) 开始。Codex 的机器入口是本地项目根目录下的 `.agents/skills/video-production-bootstrap/`。
+第一次使用从 [`00-先读我.md`](docs/00-先读我.md) 开始。Codex 的机器入口是本地项目根目录下的 `.agents/skills/video-production-bootstrap/`。
 
 ## 工作流核心文件
 
-- `00-先读我.md`：从下载到开始第一条视频的操作说明。
+- `docs/00-先读我.md`：从下载到开始第一条视频的操作说明（存档）。
 - `workflow.json`：Codex 读取的目录规划、素材入口、输出目录和阶段规则。
 - `effects.json`：Codex 读取的画面状态、特效卡、切屏矩阵和组合规则。
 - `特效与切屏规范.md`：开头动效、真人小窗、素材全屏、字幕和过程动效说明。
@@ -68,7 +68,7 @@ cd codex-video-production-workflow
 在这个目录打开 Codex，然后说：
 
 ```text
-请读取 00-先读我.md、workflow.json 和 dependencies.json，
+请读取 docs/00-先读我.md、workflow.json 和 dependencies.json，
 先检查视频工作流环境。
 不要安装、剪辑或渲染，先告诉我缺少什么。
 ```
@@ -128,7 +128,7 @@ python3 .agents/skills/video-production-bootstrap/scripts/create_video_project.p
 - `batch_extract_frames.py`：从已存在预览用一次 FFmpeg 进程抽取多个 `--time`，输出到 `06-预览与审核/关键帧/` 并生成 JSON 索引；不会启动 Remotion。
 - `check_render_processes.py`：只列出命令或工作目录关联当前项目路径的 Remotion、FFmpeg、Chromium、渲染 Node 进程；完全只读，不提供终止功能。
 
-前两个工具默认 dry-run，必须显式添加 `--execute` 才会写当前项目。三者都必须传 `--project`，且生成代理、抽帧、查进程不等于剪辑、预览渲染、最终渲染或结束进程授权。完整命令见 [`00-先读我.md`](00-先读我.md)。
+前两个工具默认 dry-run，必须显式添加 `--execute` 才会写当前项目。三者都必须传 `--project`，且生成代理、抽帧、查进程不等于剪辑、预览渲染、最终渲染或结束进程授权。完整命令见 [`00-先读我.md`](docs/00-先读我.md)。
 
 ## 排除机制
 

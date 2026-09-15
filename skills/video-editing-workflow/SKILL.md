@@ -15,7 +15,7 @@ Read the repository files in this order:
 
 1. Resolve this Skill's real repository root, then read `workflow.json` from that same root. Do not mix rules from another worktree named in an old project file.
 2. For the supplementary-material stage, read `project.json`, then the `.docx` transcript beside it and the existing inventory. Do not open or analyze the talking-head video at this stage.
-3. Read `00-先读我.md` and `dependencies.json` only for setup.
+3. Read `docs/00-先读我.md` and `dependencies.json` only for setup.
 4. Read `effects.json`, `特效与切屏规范.md`, the packaging Skill and visual references only after material readiness permits packaging.
 
 Select exactly one project containing `project.json`. Keep `01-原始素材/` immutable and write generated work only to the project's `02` through `07` stage directories.

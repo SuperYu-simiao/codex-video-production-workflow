@@ -15,7 +15,7 @@ Read these files from the repository root:
 
 1. `skills/video-editing-workflow/SKILL.md`
 2. `workflow.json`
-3. `00-先读我.md` and `dependencies.json` for setup
+3. `docs/00-先读我.md` and `dependencies.json` for setup
 4. `effects.json` and `特效与切屏规范.md` only after material readiness and when packaging begins
 
 Run the read-only dependency check before installing anything:
