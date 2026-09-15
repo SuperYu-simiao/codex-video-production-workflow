@@ -5,6 +5,8 @@
   "project_template": "项目模板",
   "project_marker": "project.json",
   "references": {
+    "unified_workflow": "视频制作统一工作流.md",
+    "approved_reference_editing": "视觉规范与参考/AI剪辑参考会话沉淀.md",
     "dependencies": "dependencies.json",
     "effects": "effects.json",
     "effects_human_guide": "特效与切屏规范.md",
@@ -180,20 +182,23 @@
     ],
     "read_order": [
       "project.json",
+      "当前项目根目录与 project.json 同级的 Word 逐字稿（补录清单阶段唯一口播内容来源）",
+      "当前项目已有素材盘点、补录清单和授权记录",
       "01-原始素材/05-文稿与字幕",
-      "01-原始素材/01-口播视频",
+      "01-原始素材/01-口播视频（仅素材齐备后的已授权制作阶段）",
       "01-原始素材/02-录屏",
       "01-原始素材/03-图片与截图",
       "01-原始素材/04-音频",
       "01-原始素材/06-授权说明",
       "01-原始素材/07-背景与动效素材",
-      "effects.json（进入动效、包装或切屏设计时）",
-      "特效与切屏规范.md（进入动效、包装或切屏设计时）",
+      "当前项目登记的 legacy 输入与 04-动效与包装/公开素材",
+      "effects.json（素材就绪并进入统一包装时）",
+      "特效与切屏规范.md（素材就绪并进入统一包装时）",
       "用户已经批准的阶段产物"
     ],
     "source_policy": "01-原始素材 is immutable; never rename, move, overwrite, normalize in place, or delete source files.",
     "scope_policy": "The repository root is the local collection folder, but runtime reads only the explicitly selected project plus repository workflow reference files listed in references. Do not scan another video project, an old project, the whole motion library, or unrelated paths. An explicit user-supplied source or preview file may be read only for the current operation.",
-    "output_policy": "Write every generated artifact to the matching 02-07 stage directory inside the selected project.",
+    "output_policy": "Write every generated artifact to the matching 02-07 stage directory inside the selected project. Public stills collected from the web go only to 04-动效与包装/公开素材 with provenance; never write into 01-原始素材.",
     "privacy_policy": "Never upload project media, transcripts, credentials, or renders unless the user separately authorizes an exact destination and exact files."
   },
   "efficiency_tools": {
@@ -227,29 +232,35 @@
     "node": "Node.js has no universal watcher exclusion setting. Run commands from the current project's 05-Remotion工程; Node and Remotion bundle only imported modules. Configure a different project-specific watcher only if that project actually introduces one.",
     "unreferenced_motion_library": "The shared 动效库 remains outside the current Remotion project and must not be enumerated or imported wholesale. Only an explicitly selected asset or module may be referenced; unreferenced files are outside the bundler dependency graph."
   },
-  "motion_planning": {
-    "required_reference": "effects.json",
-    "required_skill": "skills/video-packaging-structure/SKILL.md",
-    "effect_map_output": "04-动效与包装/特效映射-<slug>.json",
-    "storyboard_output": "04-动效与包装/包装方案-<slug>.md",
-    "material_gap_output": "04-动效与包装/需要补录的操作素材-<slug>.md",
-    "public_identity_asset_output": "04-动效与包装/工具官网-GitHub截图素材表-<slug>.md",
-    "compatibility_outputs": [
-      "04-动效与包装/特效映射.json",
-      "04-动效与包装/导演分镜.md"
-    ],
-    "requirements": [
-      "为每段口播标记语义落点和画面状态",
-      "为每段设计人物构图与转场轨：P0/P1-L/P1-R/P2-*/P3 状态、归一化 x/y/width/height、裁剪比例、手势保留、图层顺序、进入/落定/退出、稳定时长和字幕安全区",
-      "人物构图只在语义状态变化处调整；同一口播保持人物视频和音轨连续，通过裁剪、遮罩、缩放、位置和层级变化完成重构",
-      "扫描口播稿中的代码、提示词、命令、配置和分步指令；只有存在可复制原文时才使用 code-prompt-stage",
-      "代码框逐字使用项目提供的原文，保留缩进、换行、参数和占位符，长内容按语义分页而不是缩成小字",
-      "为每次画面状态变化选择与语义匹配的转场",
-      "录屏、截图、图片和文档优先全屏展示",
-      "素材全屏或标题出现时真人缩到安全角小窗",
-      "字幕只放在主画面并避让真人小窗和关键 UI",
-      "使用 Shotcraft 卡时校验 card、style-key、镜头卡全文和准确 demo TSX"
-    ]
+  "material_first_workflow": {
+    "authority": "视频制作统一工作流.md",
+    "stages": ["inventory", "material_collection", "material_review", "packaging", "edit_plan", "animation", "preview", "final_render"],
+    "inventory_outputs": ["04-动效与包装/需要补录的操作素材-<slug>.md", "04-动效与包装/素材收集台账-<slug>.json"],
+    "inventory_input": {
+      "primary_transcript": "当前项目根目录与 project.json 同级的 .docx Word逐字稿",
+      "ignore": ["~$*.docx"],
+      "selection": "project.json明确登记优先；否则唯一有效文件；否则按项目标题匹配；仍不唯一时询问用户",
+      "required_labels": ["定位依据：Word逐字稿", "时间码状态：未对音频核验"],
+      "missing_or_ambiguous": "报告阻断并等待正确Word逐字稿，不得改读视频"
+    },
+    "inventory_forbids": ["打开、播放或分析口播视频", "视频抽帧或音频提取", "ffprobe视频", "转录视频", "读取视频代理替代", "包装方案", "人物构图", "特效或转场选型", "成片秒数", "大批量读取 Shotcraft 卡和 demo"],
+    "video_read_allowed": "仅素材齐备后的已授权制作阶段，用于真实时间码、精剪、字幕、音画或小样核验",
+    "collection": {
+      "public_stills": "用户在本机后续明确启动的视频素材收集任务中持续授权 Agent 保存公开图片、Logo、官网/GitHub 截图；更窄的当次要求优先",
+      "public_output": "04-动效与包装/公开素材",
+      "write_policy": "只追加新文件和来源记录，不覆盖现有源文件",
+      "dynamic_media": "Agent 给准确链接、录法、规格和文件名，由用户录屏",
+      "does_not_authorize": ["剪辑", "动画实现", "预览", "最终渲染", "上传"]
+    },
+    "material_readiness": "每项叙事必需证据已满足，或用户明确接受缺项和诚实替代；等待不等于接受",
+    "packaging_outputs": ["04-动效与包装/包装方案-<slug>.md", "04-动效与包装/需要补录的操作素材-<slug>.md", "04-动效与包装/工具官网-GitHub截图素材表-<slug>.md", "04-动效与包装/特效映射-<slug>.json"],
+    "packaging_requirements": ["同一版本和盘点依据", "场景ID稳定", "素材路径和可用区间", "证据边界", "人物构图与字幕安全区", "语义转场和稳定阅读", "Shotcraft card/style/full-card/exact-demo核验", "用户确认后才标已锁定"],
+    "production_prerequisites": {
+      "editing": ["包装已锁定", "已获得执行精剪的授权"],
+      "animation_code": ["包装已锁定", "已获得指定制作范围的授权"],
+      "preview": ["包装已锁定", "已获得指定小样授权"],
+      "final_render": ["包装已锁定", "已获得当前版本最终渲染授权"]
+    }
   },
   "gates": [
     {
@@ -263,17 +274,38 @@
       "does_not_authorize": ["修改原片", "调用付费转录", "渲染"]
     },
     {
+      "id": "material_collection",
+      "approval": "用户明确启动素材收集任务；本机当前用户已有公开静态素材持续授权，若当次范围更窄则按更窄范围",
+      "does_not_authorize": ["设计包装", "执行剪辑", "写动画代码", "制作小样", "渲染"]
+    },
+    {
+      "id": "material_review",
+      "requires": ["material_collection_or_existing_materials"],
+      "condition": "叙事必需证据齐备，或用户明确接受缺项及诚实替代",
+      "records": ["material_readiness.ready", "unresolved_items", "accepted_exceptions", "evidence"],
+      "does_not_authorize": ["设计包装", "执行剪辑", "写动画代码", "制作小样", "渲染"]
+    },
+    {
+      "id": "packaging",
+      "requires": ["material_readiness"],
+      "approval": "素材复核后统一设计包装；用户确认后才锁定",
+      "does_not_authorize": ["执行剪辑", "写动画代码", "制作小样", "渲染", "上传或发布"]
+    },
+    {
       "id": "edit_plan",
-      "approval": "执行口播精剪方案",
+      "requires": ["packaging_locked"],
+      "approval": "最终包装锁定后执行口播精剪方案",
       "does_not_authorize": ["整片包装", "最终渲染"]
     },
     {
       "id": "preview",
+      "requires": ["packaging_locked"],
       "approval": "制作指定范围的小样",
       "does_not_authorize": ["完成整片", "最终渲染"]
     },
     {
       "id": "final_render",
+      "requires": ["packaging_locked"],
       "approval": "渲染当前明确版本的成片",
       "does_not_authorize": ["上传或发布"]
     }

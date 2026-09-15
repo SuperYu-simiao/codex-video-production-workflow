@@ -11,7 +11,7 @@
     "episode5_opening_baseline": "skills/video-packaging-structure/references/episode5-opening-baseline.md",
     "style_index": "视觉规范与参考/风格库索引.md",
     "portable_style_baseline": "skills/video-packaging-structure/references/style-library-2-public-baseline.md",
-    "stage_gate": "Write the packaging documents before editing, public screenshot capture, preview, or rendering unless the user explicitly authorizes a later stage.",
+    "stage_gate": "Load this effect specification only after material readiness. Public still collection and user recording happen before packaging. Lock packaging before editing, animation, preview, or rendering; each production action still needs its own authorization.",
     "required_outputs": [
       "04-动效与包装/包装方案-<slug>.md",
       "04-动效与包装/需要补录的操作素材-<slug>.md",

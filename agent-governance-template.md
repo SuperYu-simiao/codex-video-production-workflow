@@ -1,15 +1,81 @@
-# Agent 治理
+# 项目协作与 Agent 治理模板
 
-> 本文件按《agent-governance-template.md》组织；阶段顺序、输入输出与授权门的唯一权威是 `视频制作统一工作流.md`（机器表示 `workflow.json`）。
+> 这份文档是给 AI 编码 agent 读的「宪法」。放对位置，agent 每次开工都会自动读到。
 
-## 1. 项目定位
+## 关于 AGENTS.md（先读这节）
 
-- **一句话**：本地 AI 视频制作工作流——把真人口播视频经「Word 逐字稿盘点 → 补录清单 → 素材收集/录屏 → 素材复核 → 统一包装 → 精剪对齐 → Shotcraft 动效 → Remotion 合成 → 小样 → 成片」产出一条视频。
-- **核心用户**：内容创作者本人，默认只在本机运行，不面向外部客户。
-- **技术栈**：Python3（脚本、转录、校验）、Node / Remotion / React（包装合成与渲染）、FFmpeg（代理、抽帧、合成）、外部 Skills（video-use、video-shotcraft、transcribe）、可选 API（ELEVENLABS_API_KEY、OPENAI_API_KEY）。
-- **架构一句话**：`视频制作统一工作流.md` + `workflow.json` 是契约层（阶段顺序、目录、授权门）；`skills/video-editing-workflow/SKILL.md` 是唯一剪辑入口；`.agents/skills/video-production-bootstrap/SKILL.md` 负责环境、项目隔离与审批边界。
-- **当前状态**：见各 `视频项目/<项目名>/project.json` 的「当前阶段」字段，不在本文件维护。
-- **开工必读**：先读 `视频制作统一工作流.md`、`workflow.json` 和当前项目 `project.json`；设置环境时读 `00-先读我.md` 与 `dependencies.json`；只有素材复核通过、进入包装阶段后，才读 `effects.json`、`特效与切屏规范.md`、包装 Skill 与视觉参考。
+**它是什么**：`AGENTS.md` 是 agent 每次开工时**自动加载、常驻上下文**的指令文件。
+这是它和其他治理文件最大的区别——
+
+| 文件 | 何时进入上下文 |
+| --- | --- |
+| `AGENTS.md` | **每次开工自动加载**（agent 一定会看到） |
+| `memory/`、`plans/`、`docs/` | 按需读取（agent 判断相关才去读） |
+| 技能 `SKILL.md` | 按需加载（只有 name + description 常驻） |
+
+所以原则是：**「agent 每次都必须知道」的规则放 `AGENTS.md`；细节和案例放 `memory/`，靠索引按需展开。**
+`AGENTS.md` 要薄，越厚越容易被忽略、也越占上下文。
+
+**放哪里、怎么生效**：
+
+| 位置 | 作用 |
+| --- | --- |
+| 项目根目录 `AGENTS.md` | 项目治理，**随仓库走**，团队共享（本文档就是这个位置） |
+| `~/.pi/agent/AGENTS.md` | 全局，个人跨项目的工作习惯（只有自己看得到） |
+| 子目录 `AGENTS.md` | 该目录的局部规则，会和上级层叠 |
+
+- 从当前目录**逐级向上**查找，父目录和子目录的 `AGENTS.md` 会**层叠**（子目录的更具体，可覆盖父目录）。
+- 同目录存在 `AGENTS.override.md` 时，**用它替代**同目录的 `AGENTS.md` / `CLAUDE.md`（其余目录正常层叠）。
+- `CLAUDE.md` 也认，等价于 `AGENTS.md`——如果朋友的项目里已经有 `CLAUDE.md`，可以直接往里面加，或改成 `AGENTS.md`。
+
+**分层建议**：
+
+- **全局** `~/.pi/agent/AGENTS.md`：只放个人习惯（比如「永远用中文」「回复简洁」）。
+- **项目根** `AGENTS.md`：放项目治理（就是下面这套）。
+- 两者会一起加载，全局在前、项目在后，项目规则可以覆盖全局。
+
+---
+
+> **两种用法，挑一种：**
+>
+> - **新项目**：整份另存为项目根目录的 `AGENTS.md` → 把所有 `{{...}}` 占位符填掉 → 把第 0 节直接发给 agent 执行。
+> - **已有项目**：把第 1～11 节**追加**到你现有 `AGENTS.md` 的末尾，原有内容不要动；「禁止事项」如果和已有条款冲突，合并保留更严的那条。
+>
+> 本文档不含任何具体业务，所有例子都是通用占位，可以直接分享。
+
+---
+
+## 0. 初始化（新项目执行一次）
+
+先让 agent 把目录骨架建好。把下面这段原样发给它：
+
+> 请按 `AGENTS.md` 第 0 节建好目录骨架，并创建空的 `memory/MEMORY.md` 索引和 `memory/TEMPLATE.md` 模板。不要写任何业务代码。
+
+目录骨架：
+
+```
+memory/
+  MEMORY.md          # 台账索引（唯一入口）
+  TEMPLATE.md        # 台账条目模板
+  constraints/       # 必保行为红线（不写下来就会被改回去的约束）
+  pitfalls/          # 踩过的坑（事故经过、排查过程）
+plans/               # 每个多步任务一个文件夹，跨会话续接
+.pi/
+  agents/            # 项目级子代理（可选）
+  skills/            # 项目级技能（可选）
+```
+
+---
+
+## 1. 项目定位（占位，务必填掉）
+
+- **一句话**：`{{这个项目是干什么的}}`
+- **核心用户**：`{{谁在用，是内部员工还是外部客户}}`
+- **技术栈**：`{{语言 / 框架 / 数据库 / 部署方式}}`
+- **架构一句话**：`{{唯一的核心模块在哪，哪些是薄适配器}}`
+- **当前状态**：`{{当前正在做的计划路径}}`
+
+---
 
 ## 2. 汇报纪律
 
@@ -17,6 +83,8 @@
 - **用户是老板，非程序员。** 汇报只说「结果和效果」：能不能用、跑通没跑通、下一步是什么。
 - **禁止报技术过程**：不报测试条数、不报模块名、不报 agent 派发细节、不报 TDD 循环。
 - 用户要技术细节时再展开。
+
+---
 
 ## 3. 架构防腐（强制，加任何东西前先过这关）
 
@@ -30,6 +98,8 @@
 6. **改 agent 边界或派发协议** → 同步检查入口的分工表是否还一致。
 
 > 加东西前先问自己：**这该放哪？要不要更新索引/指针？**
+
+---
 
 ## 4. 记忆台账（「越用越聪明」的核心）
 
@@ -66,7 +136,7 @@ type: 必保行为 | gotcha | runbook | reference | project
 ## 回归测试
 （命令）
 
-来源：`{{日期 + 谁实报 / 线上问题 / 排查过程}}`
+来源：`{{日期 + 谁实报 / 线上问题 / 排查结论}}`
 ```
 
 ### 4.4 索引
@@ -76,6 +146,8 @@ type: 必保行为 | gotcha | runbook | reference | project
 ```
 - `[[<name>]]` —— 一句话说明 + 何时读它（改 X 前必读）
 ```
+
+---
 
 ## 5. 犯错即记（铁律，任何 agent 包括主 agent）
 
@@ -87,6 +159,8 @@ type: 必保行为 | gotcha | runbook | reference | project
 
 > 记台账不是罚站，是让下一次默认就不犯。
 
+---
+
 ## 6. 台账防腐（强制）
 
 台账过期比没有台账更危险。
@@ -94,6 +168,8 @@ type: 必保行为 | gotcha | runbook | reference | project
 - **改动了被台账覆盖的代码，必须同一轮回头更新对应条目。**
 - 更新时**保留旧结论被推翻的痕迹**：写明「原为 X，YYYY-MM-DD 改为 Y，原因…」，不要直接抹掉。
 - 条目里的「涉及文件」随代码搬家同步更新。
+
+---
 
 ## 7. 计划文件夹（跨会话续接）
 
@@ -110,7 +186,7 @@ plans/NNNN-YYYY-MM-DD-标题/
 - **冷启动顺序**：读 `AGENTS.md` → 读当前计划的「下一步」→ 按需展开记忆索引。
 - 上下文丢失 / `/clear` 之后，靠这些文件恢复，不靠记忆。
 
-> 本项目补充：每条独立视频 = 一个计划文件夹，用 `create_video_project.py` 建 `视频项目/<项目名>/project.json`；同一条视频的补录、修改、换会话继续原目录，不新建、不搬家。
+---
 
 ## 8. 技能（Skills）
 
@@ -150,7 +226,6 @@ description: 这个技能做什么 + 什么时候用它。这句决定 agent 会
 - **自动**：agent 看到任务匹配 description 就自己读。
 - **手动**：`/skill:技能名`，后面可跟参数。
 - **在入口文件里显式点名**（推荐，避免模型漏读）：
-
   ```markdown
   ## 技能优先级
   - 排查 bug → 优先用 `diagnosing-bugs`
@@ -181,7 +256,7 @@ description: 这个技能做什么 + 什么时候用它。这句决定 agent 会
 
 安装方式：把技能目录放进上面任一位置即可。让 pi 帮你写新技能，直接说「帮我写一个 X 技能」。
 
-> 本项目技能：`.agents/skills/video-production-bootstrap/`（环境、依赖检查、项目隔离、审批边界，先跑只读 `check_dependencies.py`）、`skills/video-editing-workflow/`（唯一剪辑入口，路由 video-use → video-shotcraft → Remotion）、`skills/video-packaging-structure/`、`skills/transcribe/` 等，见各自 `SKILL.md`。
+---
 
 ## 9. 子代理（Subagents）
 
@@ -321,6 +396,8 @@ model: <模型 id>                                  # 贵的给判断，便宜�
 > 主 agent 是控制器：**写 spec + 写测试用例**（懂业务/边界）→ 拆任务 → 派发 → review。
 > 子代理不写测试、不做架构决策。
 
+---
+
 ## 10. 验证纪律（默认只做定向验证）
 
 除非用户明确要求「全量测试 / 完整回归 / 准备提交 / 准备部署」，否则**禁止擅自跑全量测试、全量类型检查或完整构建**。
@@ -330,43 +407,25 @@ model: <模型 id>                                  # 贵的给判断，便宜�
 - 需要全量验证时，**先说明原因、命令、预计耗时，得到明确同意再跑**。
 - 预计超过 2 分钟的单条命令，提前说明。
 
+---
+
 ## 11. 禁止事项
 
-- **只用项目指定的包管理器**，不混用（本项目：`npm`（Remotion 编辑器）、`python3` / `uv`（脚本与外部 Skills））。
-- **用户没要求时不擅自 commit / push / upload**；本项目默认只在本地运行。
-- 不提交临时排查文件、草稿、凭证；**真实密钥 / 令牌绝不进 git**；**不读 `.env` 或凭据**。
+- **只用项目指定的包管理器**，不混用。
+- **用户没要求时不擅自 commit / push。**
+- 不提交临时排查文件、草稿、凭证；**真实密钥 / 令牌绝不进 git**。
 - 不把数据源 / 第三方接口的特判散落到核心调用路径（收在各自插件 / 适配器里）。
-- **原始素材只读**：`01-原始素材/` 与 legacy 输入不重命名、不移动、不覆盖、不就地归一、不删除；生成内容只写对应 `02`～`07` 阶段目录。
-- 不擅自部署、不擅自删数据、不擅自改环境变量——**改之前先问用户**；只安装用户明确要求的外部 Skill，安装授权 ≠ 剪辑/渲染授权。
-- 不扫描其他视频项目、旧项目、整个动效库或无关路径；每次只处理用户明确指定、含 `project.json` 的当前项目。
-- **补录清单阶段禁止**打开、播放、抽帧、提取音频、转录或用 `ffprobe` 分析口播视频；Word 缺失 / 损坏 / 不唯一时询问用户，不得改读视频。
-- **确认点原样执行**：「先看小样」「禁止直接做视频」「不允许 render」不能因工具已装而跳过。
-- 代理、批量抽帧、进程检查是独立辅助操作，不授权剪辑、预览渲染、最终渲染、杀进程、上传。
-- 禁止 `git add -A`、`git add .` 等宽泛暂存；`.gitignore` 不冒充 watcher 排除。
-- 不虚构 UI、操作成功、代码、百分比或资料包；原始事实不足时说明缺口。
+- **生产数据只读**，绝不写生产库。
+- 不擅自部署、不擅自删数据、不擅自改环境变量——**改之前先问用户**。
 
-## 12. 常用命令
+---
+
+## 12. 常用命令（占位）
 
 ```bash
-# 只读依赖检查（设置/排查环境前先跑）
-python3 .agents/skills/video-production-bootstrap/scripts/check_dependencies.py
-
-# 安装锁定版本的外部 Skills（需用户明确授权）
-python3 .agents/skills/video-production-bootstrap/scripts/install_dependencies.py --install
-
-# 一键安装统一 Skill + 外部 Skills（需用户明确授权）
-python3 .agents/skills/video-production-bootstrap/scripts/install_workflow.py --all
-
-# 新建一条独立视频的项目（--dry-run 仅预览结构）
-python3 .agents/skills/video-production-bootstrap/scripts/create_video_project.py --name "<项目名称>"
-
-# 本地 Remotion 包装编辑器（默认端口 5178）
-cd tools/remotion-editor && npm run dev
-
-# 短代理 / 批量抽帧（默认 dry-run，写盘需 --execute）
-python3 .agents/skills/video-production-bootstrap/scripts/create_short_proxy.py --help
-python3 .agents/skills/video-production-bootstrap/scripts/batch_extract_frames.py --help
-
-# 疑似渲染进程只读检查（无终止模式）
-python3 .agents/skills/video-production-bootstrap/scripts/check_render_processes.py
+{{安装依赖}}
+{{启动开发}}
+{{跑测试}}
+{{构建}}
+{{部署}}
 ```

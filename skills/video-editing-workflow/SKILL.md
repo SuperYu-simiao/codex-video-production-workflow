@@ -13,11 +13,10 @@ Use this as the single entry point for a full talking-head or AI/product explain
 
 Read the repository files in this order:
 
-1. `00-先读我.md`
-2. `workflow.json` and `dependencies.json`
-3. `effects.json` and `特效与切屏规范.md` when the request includes packaging, captions, motion, or screen changes
-4. `skills/video-packaging-structure/SKILL.md` and its relevant references
-5. The explicitly selected project's `project.json` and `01-原始素材/`
+1. Resolve this Skill's real repository root, then read `视频制作统一工作流.md` and `workflow.json` from that same root. Do not mix rules from another worktree named in an old project file.
+2. For the supplementary-material stage, read `project.json`, then the `.docx` transcript beside it and the existing inventory. Do not open or analyze the talking-head video at this stage.
+3. Read `00-先读我.md` and `dependencies.json` only for setup.
+4. Read `effects.json`, `特效与切屏规范.md`, the packaging Skill and visual references only after material readiness permits packaging.
 
 Select exactly one project containing `project.json`. Keep `01-原始素材/` immutable and write generated work only to the project's `02` through `07` stage directories.
 
@@ -33,7 +32,9 @@ Keep the handoff explicit:
 
 ### 1. Inventory and transcript
 
-Confirm source dimensions, frame rate, duration, audio streams, and available recordings. Prefer a transcript matching the current rough cut. If transcription is needed, use word-level or sentence-aligned audio timing where possible. Standardize confirmed technical names everywhere: captions, timeline JSON, storyboard, and effect map.
+For the initial supplementary-material pass, use the Word transcript placed beside `project.json`. Ignore `~$*.docx`. If several valid Word files exist, use a `project.json` registration, then a unique title match; if still ambiguous, ask the user. If the Word file is missing or unreadable, stop this stage and request it instead of opening the video.
+
+During this pass, do not open, play, probe, extract audio from, frame-extract, transcribe, or use a proxy of the talking-head video. Inventory other assets by filenames and existing ledgers. Label the checklist `定位依据：Word逐字稿` and `时间码状态：未对音频核验`. Source dimensions, frame rate, duration, audio streams, word timing, and audiovisual checks belong to the later authorized production stage.
 
 Run the repository subtitle check before using an SRT:
 
@@ -44,7 +45,23 @@ python3 .agents/skills/video-production-bootstrap/scripts/validate_subtitles.py 
 
 The check must pass for positive durations, monotonic cues, no overlaps, valid UTF-8, and no out-of-order blocks. It is a structural check, not a substitute for listening to the speech.
 
-### 2. Editorial and caption pass
+### 2. Material gap and collection pass
+
+Use the Word transcript semantics and inventory to write the supplementary-recording checklist and collection ledger first. Do not design shots, select effects, assign speaker layouts, or estimate final-screen timing. For an explicitly started collection task, follow the user's current standing authorization to save public stills, logos, official website and GitHub screenshots with provenance. Give the user links and exact recording instructions for dynamic pages and real operations. A narrower current request overrides the standing authorization.
+
+### 3. Material review
+
+Re-inventory all relevant media after collection. Proceed only when required evidence is ready or the user explicitly accepts a missing item and an honest alternative. Record unresolved items and accepted exceptions in `material_readiness`; waiting for a reply never counts as acceptance.
+
+### 4. Packaging and director plan
+
+Now load the packaging and visual references and produce one consistent version of the package plan, updated gap list, public asset table and effect map. Mark `已锁定` only after user confirmation. Align real speech before implementation, then create the director timeline from that audio rather than estimated proportional timing.
+
+Write these artifacts in `04-动效与包装/`: `包装方案-<slug>.md`, `需要补录的操作素材-<slug>.md`, `工具官网-GitHub截图素材表-<slug>.md`, and `特效映射-<slug>.json`. Write `02-转录与剪辑决策/导演时间线-<slug>.json` once real audio timing is available. Each segment records the spoken cue, source/master frames, visual and speaker states, crop, material, verified card/style/demo paths, caption region, audio behavior, stable reading time, and editor-only notes. Notes never become viewer copy.
+
+Use the selected local style library when it exists. Otherwise use `skills/video-packaging-structure/references/style-library-2-public-baseline.md` as the portable baseline.
+
+### 5. Editorial and caption pass
 
 Use `video-use` to preserve meaning while removing harmful silence, repeated starts, filler-heavy dead air, and mistakes. Keep intentional emphasis. Produce:
 
@@ -55,20 +72,7 @@ Use `video-use` to preserve meaning while removing harmful silence, repeated sta
 
 Captions belong to the main composition, use at most two lines, and avoid faces, hands, PIP windows, buttons, tables, and copyable code. After any cut or insertion, regenerate or remap caption cues from the approved timeline.
 
-### 3. Packaging plan before implementation
-
-Before collecting public screenshots, writing animation code, making a preview, or rendering, write the four planning artifacts in `04-动效与包装/`:
-
-- `包装方案-<slug>.md`
-- `需要补录的操作素材-<slug>.md`
-- `工具官网-GitHub截图素材表-<slug>.md`
-- `特效映射-<slug>.json`
-
-Also write `02-转录与剪辑决策/导演时间线-<slug>.json` from the director timeline schema before implementing Remotion. For every segment record the spoken cue, source/master frames, visual state, speaker state, crop, material, card/style/demo paths, caption region, audio behavior, stable reading time, and editor-only notes. Notes must never be rendered as viewer-facing copy.
-
-Use the selected local style library when it exists. If it is not included in a clone, use `skills/video-packaging-structure/references/style-library-2-public-baseline.md` as the portable baseline: low-contrast black perspective grid, one conceptual metaphor per segment, real evidence, restrained glitch, and a deliberate contrast between fast motion and calm reading holds.
-
-### 4. Motion and layout
+### 6. Motion and layout
 
 Bind movement to sentence meaning, not fixed intervals. The default semantic mapping is:
 
@@ -83,11 +87,11 @@ When a screen recording, webpage, document, or screenshot is the main visual, mo
 
 Every visual-state change gets one semantic transition. Do not stack primary transitions or keep high-energy motion running over a dense reading section. Aim for a meaningful change about every two or three spoken sentences, while allowing a stable hold when the viewer needs to read.
 
-### 5. Pause and timebase invariant
+### 7. Pause and timebase invariant
 
 An inserted bridge is a real timeline insertion. Split the source-video track at `source_at_frame`, pause source audio, place the independent bridge visual/music, then resume from the same source frame. Apply one shared `source -> master` mapping to every later caption, material, recording, and effect. Muting a continuously advancing source clip and covering it with a freeze frame is not a pause.
 
-### 6. Preview and approval
+### 8. Preview and approval
 
 Make a full-resolution representative preview before a full render. Cover the opening, first tool card, first recording, square speaker PIP, densest reading scene, a pause bridge, and the ending. Extract representative frames from the existing preview with `batch_extract_frames.py`. Check:
 
@@ -100,7 +104,7 @@ Make a full-resolution representative preview before a full render. Cover the op
 
 Preview approval allows expansion to the full review version; it does not authorize final rendering or upload.
 
-### 7. Final delivery QA
+### 9. Final delivery QA
 
 After explicit final-render approval, render into `07-成片/` and keep a QA report beside the output. Verify with typecheck, full decode, `ffprobe`, black-frame detection, subtitle structure, duration/frame count, audio sample rate/channels/loudness, and BT.709 limited-range delivery (`yuv420p`, `tv`, `bt709` where the target requires it). If BGM is configurable, render both the BGM version and the no-BGM version with identical video-track hashes. Never publish or upload without a separate destination approval.
 
@@ -111,9 +115,9 @@ Start a complete run with:
 ```text
 请使用 $video-editing-workflow，读取当前项目的 project.json 和 01-原始素材/。
 按 video-use → video-shotcraft → Remotion 的职责链工作。
-先完成转录/精剪检查、包装方案、补录清单、官网/GitHub 截图表、特效映射和导演时间线。
-使用风格库2的黑灰透视网格与真实证据基线；人物小窗按人物中心裁切。
-先只输出规划文档和缺口，不采集公开素材、不制作小样、不渲染。
+先读取项目根目录与 project.json 同级的 Word 逐字稿，再盘点现有素材并输出补录清单和素材收集台账；这一步禁止读取或分析口播视频，不设计包装或选特效。
+按已授权范围保存公开静态素材；动态页面给我链接和录法，由我录制。
+素材整理好后再统一设计包装；小样和渲染仍按阶段授权。
 ```
 
 For a later approved preview:
@@ -126,7 +130,7 @@ For a later approved preview:
 
 ## Safety and scope
 
-Installation, media inventory, transcription, editing, public screenshot capture, preview rendering, final rendering, process termination, and upload are separate approvals. Never read or commit credentials, raw talking-head footage, private recordings, private transcripts, renders, review frames, plugin caches, or unrelated projects. Do not use `git add -A` or `git add .` in this repository.
+Installation, media inventory, transcription, editing, preview rendering, final rendering, process termination, and upload have separate scopes. Public screenshot collection follows the current user's established authorization and any narrower instruction in the active task. Never read or commit credentials, raw talking-head footage, private recordings, private transcripts, renders, review frames, plugin caches, or unrelated projects. Do not use `git add -A` or `git add .` in this repository.
 
 The portable installation entry point is:
 

@@ -2,12 +2,13 @@
   "schema_version": 1,
   "project_name": "__PROJECT_NAME__",
   "created_at": "__CREATED_AT__",
-  "status": "待放入素材",
+  "status": "待盘点素材并生成补录清单",
   "workflow": "workflow.json",
   "effect_spec": "effects.json",
   "source_read_only": true,
-  "current_stage": "素材准备",
+  "current_stage": "inventory",
   "paths": {
+    "word_transcript": "*.docx（与project.json同级；补录清单阶段唯一口播内容来源）",
     "source": "01-原始素材",
     "transcript_and_edit_decisions": "02-转录与剪辑决策",
     "transcript_cache": "02-转录与剪辑决策/转录缓存",
@@ -29,10 +30,23 @@
   },
   "approvals": {
     "inventory": false,
+    "material_collection": false,
+    "packaging": false,
     "paid_transcription": false,
     "fine_cut": false,
+    "animation_implementation": false,
     "preview": false,
     "final_render": false,
     "upload": false
+  },
+  "material_readiness": {
+    "ready": false,
+    "unresolved_items": [],
+    "accepted_exceptions": [],
+    "evidence": ""
+  },
+  "packaging": {
+    "status": "not_started",
+    "version": null
   }
 }
