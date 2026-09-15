@@ -4,8 +4,8 @@
 
 ## 1. 来源与职责
 
-- 视觉底盘：`视觉规范与参考/风格库2.MD`
-- Shotcraft 映射：`视觉规范与参考/风格库2-video-shotcraft特效映射.md`
+- 视觉底盘：`memory/reference/风格库2.MD`
+- Shotcraft 映射：`memory/reference/风格库2-video-shotcraft特效映射.md`
 - `video-use`：逐字稿、实际口播时间、源片与母版时间映射、人物/素材/字幕轨
 - `video-shotcraft`：准确卡片、`style-key`、镜头卡和 demo TSX 的运动机制
 - Remotion：按导演时间线合成独立轨道

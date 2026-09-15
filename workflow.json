@@ -6,7 +6,7 @@
   "project_marker": "project.json",
   "references": {
     "unified_workflow": "docs/视频制作统一工作流.md",
-    "approved_reference_editing": "视觉规范与参考/AI剪辑参考会话沉淀.md",
+    "approved_reference_editing": "memory/reference/AI剪辑参考会话沉淀.md",
     "dependencies": "dependencies.json",
     "effects": "effects.json",
     "effects_human_guide": "特效与切屏规范.md",
@@ -16,7 +16,7 @@
     "talking_head_layout_reference": "skills/video-packaging-structure/references/talking-head-layout-motion.md",
     "director_timeline_schema": "skills/video-packaging-structure/references/director-timeline-schema.json",
     "episode5_opening_baseline": "skills/video-packaging-structure/references/episode5-opening-baseline.md",
-    "style_index": "视觉规范与参考/风格库索引.md",
+    "style_index": "memory/reference/风格库索引.md",
     "portable_style_baseline": "skills/video-packaging-structure/references/style-library-2-public-baseline.md"
   },
   "create_command": [

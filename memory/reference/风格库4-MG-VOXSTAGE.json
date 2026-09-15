@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "style_id": "mg-voxstage",
+  "display_name": "风格库4：MG-VOXSTAGE｜复古新闻档案纪实拼贴",
+  "version": "2026-08-26",
+  "status": "active_primary_style_4",
+  "source": {
+    "type": "user-authored-style-specification",
+    "evidence_status": "视觉规范移植；无参考视频或生成模型实测"
+  },
+  "trigger_words": [
+    "MG-VOXSTAGE",
+    "风格库4",
+    "复古新闻档案",
+    "纪实拼贴",
+    "新闻拼贴",
+    "调查报道视觉",
+    "archival news collage",
+    "editorial documentary collage",
+    "paper diorama"
+  ],
+  "defaults": {
+    "aspect_ratio": "16:9",
+    "genre": ["Editorial Documentary Collage", "Archival News Collage", "Mixed-media Motion Graphics"],
+    "lens_equivalent_mm": [35, 50],
+    "camera_motion": ["slow_dolly", "slow_pan", "push_2_to_4_percent"],
+    "depth_of_field": "shallow",
+    "neutral_coverage_percent": [85, 90],
+    "motion_tone": ["restrained", "mechanical", "editorial", "documentary"]
+  },
+  "palette": {
+    "archive_beige": "#C9BB9C",
+    "ink_black": "#1A1A1A",
+    "halftone_gray": "#8C8C8C",
+    "news_red": "#D62E1F",
+    "mustard_yellow": "#D9A441"
+  },
+  "red_usage_only": ["registration_misalignment", "arrows", "verified_data", "underlines", "map_routes", "circles", "verified_keywords"],
+  "red_prohibitions": ["large_red_background", "multiple_competing_red_focal_points"],
+  "person_pipeline": ["real_photo", "black_and_white_or_low_saturation", "high_contrast_print", "halftone", "paper_cutout", "coarse_white_outline", "optional_subtle_red_registration_offset", "soft_physical_paper_shadow"],
+  "anonymity_policy": {
+    "eye_bar_default": false,
+    "allowed_when": ["source_is_anonymous", "user_explicitly_requests_protection", "editorial_protection_is_documented"],
+    "prohibited_uses": ["generic_decoration", "imply_illegality", "imply_negative_identity_without_source"]
+  },
+  "spatial_layers": [
+    {"id": "foreground", "content": ["large_cutout", "newspaper_edge", "partial_archive_card"], "focus": "naturally_defocused", "parallax": "fastest"},
+    {"id": "midground", "content": ["main_people", "data_cards", "map", "headline", "arrows", "evidence"], "focus": "sharp_primary", "parallax": "medium"},
+    {"id": "background", "content": ["giant_newspaper_wall", "historic_headlines", "maps", "archives"], "focus": "softly_defocused", "parallax": "slowest"}
+  ],
+  "materials": ["yellowed_newspaper", "archive_beige_paper", "newsprint_fibers", "print_grain", "halftone_dots", "ink_marks", "subtle_stains", "light_folds", "torn_edges", "scissor_cut_edges", "offset_print_error", "subtle_registration_misalignment"],
+  "typography": {
+    "headline": "extra_large_bold_condensed_sans_uppercase",
+    "body": "traditional_newspaper_serif",
+    "data": "large_bold_condensed_sans",
+    "metadata": "small_editorial_label_or_monospace_file_number",
+    "layout": ["strict_grid", "mostly_left_aligned", "large_title_vs_tiny_annotation_contrast"],
+    "text_policy": "all readable text must come from verified project copy and be composed as controllable post-production typography"
+  },
+  "components": ["verified_red_statistic", "black_white_data_card", "map_pin", "verified_red_route", "hand_drawn_arrow", "red_circle", "red_underline", "newspaper_clipping", "archive_photo", "timeline", "verified_headline", "verified_financial_data", "file_number", "figure_label"],
+  "shot_modules": ["VS-S01_archive-wall-establishing", "VS-S02_cardboard-portrait-lineup", "VS-S03_protected-identity-file", "VS-S04_financial-number-verdict", "VS-S05_map-route-investigation", "VS-S06_headline-evidence-stack", "VS-S07_archive-timeline", "VS-S08_closing-diorama-tableau"],
+  "motion": {
+    "person_cutout": "enter_from_bottom_or_side_then_single_subtle_overshoot_and_settle",
+    "number": "count_to_verified_value_then_hold",
+    "underline": "marker_draw_left_to_right",
+    "arrow": "draw_along_verified_path",
+    "newspaper": "slide_cover_and_stack_with_gravity",
+    "photo": "manual_place_and_press",
+    "camera": "slow_stable_motion_then_stop_for_reading"
+  },
+  "lighting": {
+    "key": "soft_top_light",
+    "fill": "subtle_side_light",
+    "shadow": "soft_directionally_consistent_paper_shadow",
+    "prohibited": ["neon", "cyberpunk", "strong_volumetric_light", "plastic_reflection", "metallic_highlight"]
+  },
+  "fact_policy": {
+    "verified_required": ["headline", "number", "amount", "percentage", "date", "map_route", "person_relationship", "file_number", "logo"],
+    "unverified_handling": "mark as pending verification or explicit conceptual illustration",
+    "prohibited": ["invented_news_evidence", "cross_event_headline_splice", "fake_financial_data", "meaningless_english", "lorem_ipsum"]
+  },
+  "gates": [
+    {"id": "gate_1_archive_storyboard_and_source_plan", "approval_scope": "planning_only", "before": ["public_asset_collection", "person_processing", "style_frame", "animation", "render"]},
+    {"id": "gate_2_style_frame_approval", "approval_scope": "approved_representative_shots_only", "before": ["animation_preview", "full_packaging", "render"]}
+  ],
+  "workflow_adaptation": {
+    "overrides_default_title_stage_appearance_when_explicitly_selected": true,
+    "readable_ui_code_and_tables": ["material-fullscreen", "code-prompt-stage"],
+    "speaker": "continuous_audio_with_safe_corner_pip_or_approved_hide",
+    "captions": "main_composition_only",
+    "render_authorization": "separate_final_render_gate"
+  },
+  "prohibited": ["modern_tech_ui", "glassmorphism", "cyberpunk", "blue_purple_neon", "glossy_3d", "cartoon_people", "ai_plastic_texture", "high_saturation_background", "large_gradient", "floating_hud", "meaningless_english", "lorem_ipsum", "blurred_logo", "watermark", "excessive_sharpening", "perfect_vector_person_edge", "spotless_digital_design"],
+  "legacy_style_4_reference": {
+    "style_id": "paper-collage-explainer",
+    "status": "historical_subreference_not_default",
+    "files": ["风格库4-纸张拼贴解释.MD", "风格库4-纸张拼贴解释-模板.md", "风格库4-纸张拼贴解释.json"]
+  }
+}

@@ -113,6 +113,6 @@ Treat environment installation, source inventory, paid transcription, fine-cut e
 
 ## Local-only boundary
 
-This project is local-only by default. Unless the user explicitly requests it, never stage, push, or upload any files. Never publish `视频项目/`, `旧版项目/`, `本地项目/`, `动效库/`, `视觉规范与参考/`, media, transcripts, credentials, plugin caches, third-party checkouts, or renders.
+This project is local-only by default. Unless the user explicitly requests it, never stage, push, or upload any files. Never publish `视频项目/`, `旧版项目/`, `本地项目/`, `动效库/`, `memory/reference/参考分析缓存/`, media, transcripts, credentials, plugin caches, third-party checkouts, or renders.
 
 Inspect exact staged paths. Never use `git add -A`, `git add .`, or an equivalent broad stage in this repository.

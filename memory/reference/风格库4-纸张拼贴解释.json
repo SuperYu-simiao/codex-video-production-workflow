@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "style_id": "paper-collage-explainer",
+  "display_name": "历史子参考：纸张拼贴定格解释",
+  "version": "2026-08-25",
+  "status": "legacy_subreference_not_default",
+  "source": {
+    "type": "user-provided-skill",
+    "name": "paper-collage-explainer-generator",
+    "path": "/Users/yusimiao/.codex/attachments/18e115ff-0edf-4e75-bc5b-c0040ea0837f/pasted-text.txt",
+    "evidence_status": "规范移植；无参考视频实测"
+  },
+  "compatibility": {
+    "source_skill": "MiniMax Hub",
+    "local_workflow": "planning-and-adaptation-only",
+    "portable_generation": false
+  },
+  "trigger_words": [
+    "paper collage explainer",
+    "paper-collage animation",
+    "halftone collage",
+    "collage explainer",
+    "纸拼贴",
+    "拼贴科普",
+    "定格拼贴",
+    "拼贴动画"
+  ],
+  "use_when": [
+    "短口播或观点句需要视觉隐喻 B-roll",
+    "知识点或抽象主题需要编辑部纸片叙事",
+    "批量生成多个独立的拼贴解释片段",
+    "需要纸张滑动、弹入、压平和摩擦拟音"
+  ],
+  "avoid_when": [
+    "真人主导产品广告",
+    "精确可编辑图层或透明抠图交付",
+    "需要准确 Logo、UI、代码或长提示词阅读",
+    "只需要文字提示词而不需要媒体计划"
+  ],
+  "defaults": {
+    "aspect_ratio": "16:9",
+    "segment_duration_seconds": 4,
+    "video_model": "MiniMax-H3",
+    "audio": {
+      "collage_sfx": true,
+      "bgm": false,
+      "voiceover": false,
+      "subtitles": false
+    },
+    "text_in_media": false,
+    "style_signature": "flat bold color field, black-and-white halftone photographic cut-outs, selective colored cardstock accents, warm cream keylines, soft paper shadows, fine uncoated-paper grain, premium editorial paper collage, clean refined hand-torn paper edges, subtle fibrous edges, layered paper seams"
+  },
+  "palette_roles": {
+    "burnt_orange_red": "labor, urgency, conflict",
+    "mustard_yellow": "tools, warning, accumulated errors",
+    "ink_green": "cognition, reset, judgment",
+    "deep_purple": "memory, structure, mystery",
+    "teal": "collaboration, execution, system flow",
+    "rose_red": "absurdity, ceremony, theatrical tension",
+    "warm_cream": "keylines and highlights"
+  },
+  "states": [
+    {
+      "id": "paper-field",
+      "purpose": "clean color field before assembly",
+      "motion": "stable"
+    },
+    {
+      "id": "collage-assembly",
+      "purpose": "readable piece-by-piece stop-motion build",
+      "motion": "appear, slide_or_pop, light_bounce, press_flat, pause, lock"
+    },
+    {
+      "id": "collage-settled",
+      "purpose": "approved still-like final composition",
+      "motion": "no decorative camera movement",
+      "minimum_hold_seconds": 0.8
+    },
+    {
+      "id": "collage-broll-with-pip",
+      "purpose": "full-screen collage with continuous speaker in safe-corner PIP",
+      "motion": "animate existing speaker crop/scale/position; do not restart clip"
+    }
+  ],
+  "beat_extraction": [
+    "core_meaning",
+    "emotion",
+    "action_verb",
+    "visual_metaphor",
+    "key_object_groups_3_to_6",
+    "background_and_accent_colors",
+    "assembly_order",
+    "sfx_implications"
+  ],
+  "motion_sequence": [
+    "match_approved_still_background_color",
+    "assemble_background_groups",
+    "enter_main_metaphor",
+    "assemble_secondary_groups",
+    "lock_foreground_detail",
+    "hold_completed_still"
+  ],
+  "default_timeline_seconds": [
+    {"range": "0.00-0.35", "state": "paper-field", "action": "confirm color field"},
+    {"range": "0.35-1.00", "state": "collage-assembly", "action": "background slide and press"},
+    {"range": "1.00-1.90", "state": "collage-assembly", "action": "main metaphor pop and settle"},
+    {"range": "1.90-2.90", "state": "collage-assembly", "action": "secondary staggered assembly"},
+    {"range": "2.90-3.35", "state": "collage-assembly", "action": "foreground lock"},
+    {"range": "3.35-4.00+", "state": "collage-settled", "action": "stable reading hold"}
+  ],
+  "audio_policy": {
+    "default": "collage_sfx_only",
+    "retain_source_collage_sfx": true,
+    "optional_addons_require_explicit_approval": ["bgm", "voiceover", "subtitles"],
+    "preferred_sfx": ["paper_slide", "pop_in", "press_flat_tap", "light_rustle", "tiny_snap"]
+  },
+  "gates": [
+    {
+      "id": "gate_1_production_plan",
+      "before": ["still_generation", "video_generation", "audio_generation"],
+      "requires": ["brief", "visual_metaphors", "silent_or_approved_voiceover_beat_track", "storyboard"],
+      "approval_scope": "plan_only"
+    },
+    {
+      "id": "gate_2_still_approval",
+      "before": ["video_generation", "animation"],
+      "requires": ["one_final_still_or_self_contained_still_spec_per_segment"],
+      "approval_scope": "approved_segments_only"
+    }
+  ],
+  "current_workflow_adaptation": {
+    "main_state": "material-fullscreen",
+    "speaker": "safe-corner-pip_when_present",
+    "captions": "main_composition_only_after_explicit_approval",
+    "state_change": "semantic_transition_required",
+    "project_outputs": [
+      "04-动效与包装/包装方案-<slug>.md",
+      "04-动效与包装/需要补录的操作素材-<slug>.md",
+      "04-动效与包装/工具官网-GitHub截图素材表-<slug>.md",
+      "04-动效与包装/特效映射-<slug>.json"
+    ],
+    "render_authorization": "separate_final_render_gate"
+  },
+  "qa": [
+    "metaphor_understandable_without_text",
+    "clear_foreground_midground_background",
+    "3_to_6_readable_object_groups",
+    "matching_opening_color_field",
+    "piece_by_piece_stop_motion",
+    "controlled_clean_paper_texture",
+    "approved_still_final_frame_match",
+    "no_unapproved_bgm_voiceover_subtitles",
+    "no_fake_text_ui_logo_watermark",
+    "batch_style_and_sfx_continuity"
+  ]
+}

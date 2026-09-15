@@ -39,12 +39,12 @@ output/
 **/07-成片/**
 
 # The public video package contains Skills and workflow only. Personal projects,
-# source media, renders, references, and old local migrations stay on this Mac.
+# source media, renders, local caches, and old local migrations stay on this Mac.
 /视频项目/
 /旧版项目/
 /本地项目/
 /动效库/
-/视觉规范与参考/
+/memory/reference/参考分析缓存/
 /临时输出/
 /迁移清单.md
 

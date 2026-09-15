@@ -208,7 +208,7 @@
     "create_project_script": ".agents/skills/video-production-bootstrap/scripts/create_video_project.py",
     "required_files": [
       "docs/视频制作统一工作流.md",
-      "视觉规范与参考/AI剪辑参考会话沉淀.md",
+      "memory/reference/AI剪辑参考会话沉淀.md",
       "docs/00-先读我.md",
       "workflow.json",
       "effects.json",

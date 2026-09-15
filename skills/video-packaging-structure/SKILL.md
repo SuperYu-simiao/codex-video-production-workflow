@@ -11,7 +11,7 @@ This Skill starts only after `skills/video-editing-workflow/SKILL.md` material r
 
 Resolve the real repository root and read from that same root: `skills/video-editing-workflow/SKILL.md`, `workflow.json`, `effects.json`, `特效与切屏规范.md`, `references/default-structure.md` and `references/talking-head-layout-motion.md`. Read the selected project's `project.json`, current ledger and collected inputs. Do not mix rules from an old worktree path.
 
-When selected, read the complete local style entry. For 风格库2, read both local entries; use the portable baseline only when they are absent. Read `视觉规范与参考/AI剪辑参考会话沉淀.md` when reusing the approved reference language. Its counts and frames are historical evidence, not a quota. Read `episode5-opening-baseline.md` only when that opening structure applies.
+When selected, read the complete local style entry. For 风格库2, read both local entries; use the portable baseline only when they are absent. Read `memory/reference/AI剪辑参考会话沉淀.md` when reusing the approved reference language. Its counts and frames are historical evidence, not a quota. Read `episode5-opening-baseline.md` only when that opening structure applies.
 
 ## Output and lock
 
