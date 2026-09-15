@@ -13,7 +13,7 @@ Use this as the single entry point for a full talking-head or AI/product explain
 
 Read the repository files in this order:
 
-1. Resolve this Skill's real repository root, then read `视频制作统一工作流.md` and `workflow.json` from that same root. Do not mix rules from another worktree named in an old project file.
+1. Resolve this Skill's real repository root, then read `workflow.json` from that same root. Do not mix rules from another worktree named in an old project file.
 2. For the supplementary-material stage, read `project.json`, then the `.docx` transcript beside it and the existing inventory. Do not open or analyze the talking-head video at this stage.
 3. Read `00-先读我.md` and `dependencies.json` only for setup.
 4. Read `effects.json`, `特效与切屏规范.md`, the packaging Skill and visual references only after material readiness permits packaging.

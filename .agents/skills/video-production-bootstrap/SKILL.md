@@ -13,7 +13,7 @@ Use the public workflow without exposing the author's projects or mixing multipl
 
 Read these files from the repository root:
 
-1. `视频制作统一工作流.md`
+1. `skills/video-editing-workflow/SKILL.md`
 2. `workflow.json`
 3. `00-先读我.md` and `dependencies.json` for setup
 4. `effects.json` and `特效与切屏规范.md` only after material readiness and when packaging begins
@@ -88,7 +88,7 @@ An explicit user-supplied external file path may be read for the current project
 
 ## Motion and screen changes
 
-Follow `视频制作统一工作流.md`. For the material gap checklist, read the `.docx` Word transcript beside `project.json` and do not open, play, probe, extract, transcribe, or frame-extract the talking-head video. If the Word file is unavailable or ambiguous, request the correct file rather than falling back to video. Only after material review passes should packaging load `effects.json` and write the effect map or storyboard.
+Follow `skills/video-editing-workflow/SKILL.md`. For the material gap checklist, read the `.docx` Word transcript beside `project.json` and do not open, play, probe, extract, transcribe, or frame-extract the talking-head video. If the Word file is unavailable or ambiguous, request the correct file rather than falling back to video. Only after material review passes should packaging load `effects.json` and write the effect map or storyboard.
 
 - Keep talking-head footage fullscreen for direct narration.
 - Move the same talking-head clip into a safe-corner PIP for product names, titles, recordings, screenshots, images, documents, or canvas scenes.

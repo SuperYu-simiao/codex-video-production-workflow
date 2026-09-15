@@ -1,15 +1,15 @@
 # Agent 治理
 
-> 本文件按《agent-governance-template.md》组织；阶段顺序、输入输出与授权门的唯一权威是 `视频制作统一工作流.md`（机器表示 `workflow.json`）。
+> 本文件按《agent-governance-template.md》组织；阶段顺序与过程的权威是 `skills/video-editing-workflow/SKILL.md`，授权门/目录/读序的机器契约是 `workflow.json`，制作约束在 `memory/`，关键决策在 `docs/adr/`。
 
 ## 1. 项目定位
 
 - **一句话**：本地 AI 视频制作工作流——把真人口播视频经「Word 逐字稿盘点 → 补录清单 → 素材收集/录屏 → 素材复核 → 统一包装 → 精剪对齐 → Shotcraft 动效 → Remotion 合成 → 小样 → 成片」产出一条视频。
 - **核心用户**：内容创作者本人，默认只在本机运行，不面向外部客户。
 - **技术栈**：Python3（脚本、转录、校验）、Node / Remotion / React（包装合成与渲染）、FFmpeg（代理、抽帧、合成）、外部 Skills（video-use、video-shotcraft、transcribe）、可选 API（ELEVENLABS_API_KEY、OPENAI_API_KEY）。
-- **架构一句话**：`视频制作统一工作流.md` + `workflow.json` 是契约层（阶段顺序、目录、授权门）；`skills/video-editing-workflow/SKILL.md` 是唯一剪辑入口；`.agents/skills/video-production-bootstrap/SKILL.md` 负责环境、项目隔离与审批边界。
+- **架构一句话**：`skills/video-editing-workflow/SKILL.md` 是唯一剪辑入口（阶段顺序与过程）；`workflow.json` 是机器契约（授权门、目录、read_order）；`memory/` 存制作约束与剪辑细则；`docs/adr/` 存关键决策；`.agents/skills/video-production-bootstrap/SKILL.md` 负责环境、项目隔离与审批边界。
 - **当前状态**：见各 `视频项目/<项目名>/project.json` 的「当前阶段」字段，不在本文件维护。
-- **开工必读**：先读 `视频制作统一工作流.md`、`workflow.json` 和当前项目 `project.json`；设置环境时读 `00-先读我.md` 与 `dependencies.json`；只有素材复核通过、进入包装阶段后，才读 `effects.json`、`特效与切屏规范.md`、包装 Skill 与视觉参考。
+- **开工必读**：先读 `skills/video-editing-workflow/SKILL.md`、`workflow.json` 和当前项目 `project.json`；设置环境时读 `00-先读我.md` 与 `dependencies.json`；只有素材复核通过、进入包装阶段后，才读 `effects.json`、`特效与切屏规范.md`、包装 Skill 与视觉参考。
 
 ## 2. 汇报纪律
 

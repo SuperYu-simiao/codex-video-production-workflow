@@ -15,7 +15,7 @@
 - `dependencies.json`：系统工具、账号、插件和外部 GitHub Skill 固定版本。
 - `skills/video-editing-workflow/`：完整剪辑统一入口，串起 `video-use → video-shotcraft → Remotion`、字幕、包装、预览和 QA。
 - `项目模板/`：每条新视频的空白项目配置与说明。
-- `视频制作统一工作流.md`：阶段顺序的唯一入口；先补齐素材，再统一设计包装。
+- `skills/video-editing-workflow/SKILL.md`：完整剪辑统一入口（阶段顺序与过程）；先补齐素材，再统一设计包装。
 - `skills/video-packaging-structure/`：素材就绪后生成包装方案、公开身份素材表和特效映射的结构 Skill。
 - `skills/ai-visual-director/`：视觉分析、动效规划和导演分镜。
 - `skills/chatcut/`：需要可编辑工程时的交付流程。
@@ -118,7 +118,7 @@ python3 .agents/skills/video-production-bootstrap/scripts/create_video_project.p
 
 总文件夹统一保存视频项目、旧项目、动效库和本地输出；它们保持原位，不因一条新视频迁移或删除。Codex 运行时先读取用户明确指定的当前项目 `project.json`，再只扫描该项目的 `01-原始素材/`，不枚举其他视频项目、旧项目或整个动效库。原始素材始终只读；转录、精剪、包装、预览和成片分别写入当前项目的 `02` 到 `07` 目录。
 
-先按 [`视频制作统一工作流.md`](视频制作统一工作流.md) 读取当前项目根目录、与 `project.json` 同级的 Word 逐字稿，再盘点其他素材文件并输出补录清单；此阶段禁止读取或分析口播视频。Agent 按已授权范围保存公开图片、Logo、官网和 GitHub 截图；动态页面或真实操作由用户按链接与具体录法录制。素材齐备或用户明确接受缺项后，才读取包装 Skill、[`effects.json`](effects.json)、[`特效与切屏规范.md`](特效与切屏规范.md) 和 [AI剪辑参考会话沉淀](视觉规范与参考/AI剪辑参考会话沉淀.md)，一次性设计并锁定包装。
+先按 [`skills/video-editing-workflow/SKILL.md`](skills/video-editing-workflow/SKILL.md) 读取当前项目根目录、与 `project.json` 同级的 Word 逐字稿，再盘点其他素材文件并输出补录清单；此阶段禁止读取或分析口播视频。Agent 按已授权范围保存公开图片、Logo、官网和 GitHub 截图；动态页面或真实操作由用户按链接与具体录法录制。素材齐备或用户明确接受缺项后，才读取包装 Skill、[`effects.json`](effects.json)、[`特效与切屏规范.md`](特效与切屏规范.md) 和 [AI剪辑参考会话沉淀](视觉规范与参考/AI剪辑参考会话沉淀.md)，一次性设计并锁定包装。
 
 ## 剪辑效率工具
 

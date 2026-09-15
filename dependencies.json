@@ -207,7 +207,7 @@
     "local_projects_root": "本地项目",
     "create_project_script": ".agents/skills/video-production-bootstrap/scripts/create_video_project.py",
     "required_files": [
-      "视频制作统一工作流.md",
+      "docs/视频制作统一工作流.md",
       "视觉规范与参考/AI剪辑参考会话沉淀.md",
       "00-先读我.md",
       "workflow.json",

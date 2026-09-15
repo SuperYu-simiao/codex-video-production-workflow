@@ -5,7 +5,7 @@
   "project_template": "项目模板",
   "project_marker": "project.json",
   "references": {
-    "unified_workflow": "视频制作统一工作流.md",
+    "unified_workflow": "docs/视频制作统一工作流.md",
     "approved_reference_editing": "视觉规范与参考/AI剪辑参考会话沉淀.md",
     "dependencies": "dependencies.json",
     "effects": "effects.json",
@@ -233,7 +233,7 @@
     "unreferenced_motion_library": "The shared 动效库 remains outside the current Remotion project and must not be enumerated or imported wholesale. Only an explicitly selected asset or module may be referenced; unreferenced files are outside the bundler dependency graph."
   },
   "material_first_workflow": {
-    "authority": "视频制作统一工作流.md",
+    "authority": "docs/视频制作统一工作流.md",
     "stages": ["inventory", "material_collection", "material_review", "packaging", "edit_plan", "animation", "preview", "final_render"],
     "inventory_outputs": ["04-动效与包装/需要补录的操作素材-<slug>.md", "04-动效与包装/素材收集台账-<slug>.json"],
     "inventory_input": {
