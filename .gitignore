@@ -54,3 +54,8 @@ output/
 /skills/video-use.backup-*/
 /插件Skills快照/
 /插件运行时入口/
+
+# Scroll-parallax website demo (not part of the video workflow)
+/scroll-video-parallax/
+/shot-*.png
+/cap-*.png

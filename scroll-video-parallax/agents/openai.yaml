@@ -1,8 +1,0 @@
-interface:
-  display_name: "滚动视频视差网站"
-  short_description: "用视频或关键帧构建、调试并验证丝滑的滚动视差叙事网页"
-  brand_color: "#0B1B26"
-  default_prompt: "Use $scroll-video-parallax to build and verify a scroll-linked parallax storytelling website from my video and page content."
-
-policy:
-  allow_implicit_invocation: true
