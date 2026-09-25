@@ -16,7 +16,7 @@ Read the repository files in this order:
 1. Resolve this Skill's real repository root, then read `workflow.json` from that same root. Do not mix rules from another worktree named in an old project file.
 2. For the supplementary-material stage, read `project.json`, then the `.docx` transcript beside it and the existing inventory. Do not open or analyze the talking-head video at this stage.
 3. Read `docs/00-先读我.md` and `dependencies.json` only for setup.
-4. Read `effects.json`, `特效与切屏规范.md`, the packaging Skill and visual references only after material readiness permits packaging.
+4. Read `effects.json`, `特效与切屏规范.md`, the packaging Skill, and the mandatory visual references only after material readiness permits packaging: `memory/reference/AI剪辑参考会话沉淀.md` (approved episode quality baseline) and `memory/reference/特效使用模板.md` (semantic effect-selection template). These two are required reading for every episode, not optional memory lookups.
 
 Select exactly one project containing `project.json`. Keep `01-原始素材/` immutable and write generated work only to the project's `02` through `07` stage directories.
 
@@ -55,7 +55,7 @@ Re-inventory all relevant media after collection. Proceed only when required evi
 
 ### 4. Packaging and director plan
 
-Now load the packaging and visual references and produce one consistent version of the package plan, updated gap list, public asset table and effect map. Mark `已锁定` only after user confirmation. Align real speech before implementation, then create the director timeline from that audio rather than estimated proportional timing.
+First read the two mandatory references — `memory/reference/AI剪辑参考会话沉淀.md` (approved episode quality baseline) and `memory/reference/特效使用模板.md` (semantic effect-selection template) — then load the packaging and visual references and produce one consistent version of the package plan, updated gap list, public asset table and effect map. Mark `已锁定` only after user confirmation. Align real speech before implementation, then create the director timeline from that audio rather than estimated proportional timing.
 
 Write these artifacts in `04-动效与包装/`: `包装方案-<slug>.md`, `需要补录的操作素材-<slug>.md`, `工具官网-GitHub截图素材表-<slug>.md`, and `特效映射-<slug>.json`. Write `02-转录与剪辑决策/导演时间线-<slug>.json` once real audio timing is available. Each segment records the spoken cue, source/master frames, visual and speaker states, crop, material, verified card/style/demo paths, caption region, audio behavior, stable reading time, and editor-only notes. Notes never become viewer copy.
 

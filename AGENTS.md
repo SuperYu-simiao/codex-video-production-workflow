@@ -9,7 +9,7 @@
 - **技术栈**：Python3（脚本、转录、校验）、Node / Remotion / React（包装合成与渲染）、FFmpeg（代理、抽帧、合成）、外部 Skills（video-use、video-shotcraft、transcribe）、可选 API（ELEVENLABS_API_KEY、OPENAI_API_KEY）。
 - **架构一句话**：`skills/video-editing-workflow/SKILL.md` 是唯一剪辑入口（阶段顺序与过程）；`workflow.json` 是机器契约（授权门、目录、read_order）；`memory/` 存制作约束与剪辑细则；`docs/adr/` 存关键决策；`.agents/skills/video-production-bootstrap/SKILL.md` 负责环境、项目隔离与审批边界。
 - **当前状态**：见各 `视频项目/<项目名>/project.json` 的「当前阶段」字段，不在本文件维护。
-- **开工必读**：先读 `skills/video-editing-workflow/SKILL.md`、`workflow.json` 和当前项目 `project.json`；设置环境时读 `docs/00-先读我.md` 与 `dependencies.json`；只有素材复核通过、进入包装阶段后，才读 `effects.json`、`特效与切屏规范.md`、包装 Skill 与视觉参考。
+- **开工必读**：先读 `skills/video-editing-workflow/SKILL.md`、`workflow.json` 和当前项目 `project.json`；设置环境时读 `docs/00-先读我.md` 与 `dependencies.json`；只有素材复核通过、进入包装阶段后，才读 `effects.json`、`特效与切屏规范.md`、包装 Skill，以及**每期必读的两份质量基准**：`memory/reference/AI剪辑参考会话沉淀.md`（人物 PIP 与人脸居中、转场、节奏、先小样后全片）和 `memory/reference/特效使用模板.md`（逐字稿语义→特效选型）。
 
 ## 2. 汇报纪律
 
