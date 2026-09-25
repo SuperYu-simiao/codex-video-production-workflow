@@ -85,7 +85,7 @@ Bind movement to sentence meaning, not fixed intervals. The default semantic map
 
 When a screen recording, webpage, document, or screenshot is the main visual, move the same continuous talking-head clip into a stable safe-corner PIP. For a square PIP, crop by face and torso center rather than geometric center; keep eyes, mouth, chin, and necessary gestures inside the frame. Animate fullscreen-to-PIP over roughly 12–20 frames at 30fps, then hold the composition while the evidence is read.
 
-Every visual-state change gets one semantic transition. Do not stack primary transitions or keep high-energy motion running over a dense reading section. Aim for a meaningful change about every two or three spoken sentences, while allowing a stable hold when the viewer needs to read.
+Every visual-state change gets one semantic transition. Do not stack primary transitions or keep high-energy motion running over a dense reading section. Aim for a meaningful change about every sentence or half-sentence (split long sentences by meaning), never reuse the same effect card across the whole film, and keep a stable hold only when the viewer needs to read.
 
 ### 7. Pause and timebase invariant
 
