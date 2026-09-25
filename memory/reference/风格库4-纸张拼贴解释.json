@@ -7,7 +7,7 @@
   "source": {
     "type": "user-provided-skill",
     "name": "paper-collage-explainer-generator",
-    "path": "/Users/yusimiao/.codex/attachments/18e115ff-0edf-4e75-bc5b-c0040ea0837f/pasted-text.txt",
+    "path": "pasted-text.txt (local attachment; not in repo)",
     "evidence_status": "规范移植；无参考视频实测"
   },
   "compatibility": {

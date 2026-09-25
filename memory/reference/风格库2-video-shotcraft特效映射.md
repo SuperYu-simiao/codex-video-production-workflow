@@ -2,7 +2,7 @@
 
 对照仓库：[`Vincentwei1021/video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft)
 
-对照基准：`风格库2.MD` 对参考视频 `/Users/yusimiao/Desktop/录屏2026-08-18 21.23.34.mov` 的 0–139 秒拆解。
+对照基准：`风格库2.MD` 对参考视频 `录屏2026-08-18 21.23.34.mov`（本机）的 0–139 秒拆解。
 
 用途：为下一期视频分镜选型。这里匹配的是**视觉布局、运动机制和剪辑语法**，不是要求素材、配色和文案完全相同。
 
