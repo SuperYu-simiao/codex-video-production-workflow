@@ -43,14 +43,12 @@ output/
 /视频项目/
 /旧版项目/
 /本地项目/
-/动效库/
 /memory/reference/参考分析缓存/
 /临时输出/
 /迁移清单.md
 
-# Third-party checkouts and Codex-managed plugin caches are restored from
-# dependencies.json instead of being copied into the public repository.
-/skills/video-use/
+# Bundled third-party Skills ship inside the repo so a fresh clone works
+# offline; install scripts reuse the bundled copy instead of re-cloning.
 /skills/video-use.backup-*/
 /插件Skills快照/
 /插件运行时入口/
@@ -62,3 +60,10 @@ output/
 
 # Standalone HTML project, not part of the video workflow
 /AI社群长页-可编辑HTML/
+
+# Motion library: ship source and registry; keep nested git repo and generated
+# build output local (restored via npm install).
+动效库/snapcn/.git/
+动效库/tech-perspective-grid-background/output/
+动效库/tech-perspective-grid-background/out/
+动效库/tech-perspective-grid-background/build/

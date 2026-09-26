@@ -37,6 +37,22 @@ def install_skill(item: dict[str, Any], repo_root: Path, install_deps: bool) -> 
         return
     if destination.exists():
         raise RuntimeError(f"Refusing to overwrite non-Skill path: {destination}")
+
+    # Prefer the copy bundled inside this repository (offline, pinned at the
+    # same commit recorded in dependencies.json).
+    bundled = repo_root / "skills" / item["name"]
+    if (bundled / "SKILL.md").is_file():
+        print(f"BUNDLED {item['name']}: reusing repository copy at {bundled}")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.symlink_to(bundled, target_is_directory=True)
+        print(f"LINKED {bundled} -> {destination}")
+        post_install = item.get("post_install")
+        if install_deps and post_install and post_install.get("kind") == "uv_sync":
+            if not shutil.which("uv"):
+                raise RuntimeError(f"uv is required to finish installing {item['name']}")
+            run(["uv", "sync"], cwd=destination)
+        return
+
     destination.parent.mkdir(parents=True, exist_ok=True)
 
     temp_path = Path(tempfile.mkdtemp(prefix=f".{item['name']}-", dir=destination.parent))
