@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "templateId": "effect-library-template-1",
+  "variant": "T1-A",
+  "composition": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "background": "#06080d"
+  },
+  "speaker": {
+    "src": "<当前项目>/05-Remotion工程/public/speaker.mp4",
+    "focus": "50% 50%",
+    "safeLayouts": ["fullscreen", "left-rail", "right-rail", "pip-br"]
+  },
+  "assets": {
+    "heroImage": "<当前项目>/05-Remotion工程/public/hero.jpg",
+    "conceptImage": "<当前项目>/05-Remotion工程/public/concept.png",
+    "recording": "<当前项目>/05-Remotion工程/public/recording.mp4",
+    "publicScreenshots": [
+      "<当前项目>/05-Remotion工程/public/official/tool-home.png"
+    ],
+    "bridgeBgm": null
+  },
+  "theme": {
+    "accent": "#72d9ff",
+    "secondaryAccent": "#b695ff",
+    "warningAccent": "#ff8b68",
+    "successAccent": "#b8f36a",
+    "captionColor": "#ffffff"
+  },
+  "slots": {
+    "word": "CODEX",
+    "headline": "关键结论",
+    "nodes": [
+      {"label": "Skill A", "sub": "能力说明", "color": "#72d9ff"},
+      {"label": "Skill B", "sub": "能力说明", "color": "#b695ff"},
+      {"label": "Skill C", "sub": "能力说明", "color": "#ff8b68"}
+    ],
+    "steps": ["第一步", "第二步", "第三步"],
+    "labels": ["关键词一", "关键词二", "关键词三"],
+    "privacyMask": {
+      "enabled": true,
+      "regions": [],
+      "replacement": ""
+    }
+  },
+  "timeline": [
+    {
+      "id": "cue-01",
+      "module": "hero-news",
+      "startSeconds": 0,
+      "durationSeconds": 4.5,
+      "transcriptCue": "<逐字稿中的开场句>",
+      "assetSlot": "heroImage",
+      "speakerState": "hidden",
+      "captionSafeArea": "bottom-15-percent"
+    }
+  ],
+  "renderPolicy": {
+    "reuseMotionShell": true,
+    "reuseUnchangedShots": true,
+    "previewFramesOnly": true,
+    "finalRenderRequiresApproval": true
+  }
+}

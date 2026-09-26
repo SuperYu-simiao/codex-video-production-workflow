@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "templateId": "effect-library-template-1",
+  "displayName": "特效库模板1：暗场网格 + 语义证据动效",
+  "version": "1.0.0",
+  "status": "local-reusable",
+  "extractedFrom": {
+    "project": "视频项目/第9期 codex三个sill黄仁勋",
+    "baselineFiles": [
+      "05-Remotion工程/src/Episode9V6Effects.tsx",
+      "05-Remotion工程/src/Episode9V5Effects.tsx",
+      "05-Remotion工程/src/ShotcraftStages.tsx",
+      "05-Remotion工程/src/OpeningLayers.tsx",
+      "05-Remotion工程/src/CardFlockTumble.tsx"
+    ],
+    "sourceMediaCopied": false,
+    "privacyReview": "本模板不包含真人原片、私人录屏、账户信息、API key 或项目截图"
+  },
+  "defaults": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "background": "#06080d",
+    "grid": "linear perspective grid, low contrast",
+    "palette": {
+      "aiBlue": "#72d9ff",
+      "thinkingViolet": "#b695ff",
+      "chapterOrange": "#ff8b68",
+      "successLime": "#b8f36a",
+      "paperWhite": "#f6f4ef",
+      "captionBackground": "rgba(3,5,10,.76)"
+    },
+    "caption": {
+      "fontFamily": "PingFang SC, Hiragino Sans GB, Noto Sans CJK SC, Arial Unicode MS, sans-serif",
+      "fontSize": 48,
+      "bottomSafeBandPercent": 15,
+      "keywordColors": {
+        "Skill": "#b695ff",
+        "anysearch": "#72d9ff",
+        "Superpowers": "#ff8b68"
+      }
+    },
+    "speaker": {
+      "defaultObjectPosition": "50% 50%",
+      "semanticStateChangesOnly": true,
+      "safeLayouts": ["fullscreen", "left-rail", "right-rail", "pip-br", "hidden"],
+      "leftRail": {"x": 0.035, "y": 0.16, "width": 0.3, "height": 0.68, "objectPosition": "80% 34%"},
+      "rightRail": {"x": 0.69, "y": 0.16, "width": 0.27, "height": 0.66, "objectPosition": "50% 50%"}
+    },
+    "readingHoldSeconds": 0.8,
+    "privacy": {
+      "recordingFitDefault": "contain",
+      "allowCoverOnlyAfterAudit": true,
+      "forbiddenOnScreen": ["API key", "token", "account avatar", "private path", "workspace name", "customer data"]
+    }
+  },
+  "variants": {
+    "T1-A": {
+      "name": "轻解释",
+      "sequence": ["hero-news", "definition-sop", "install-steps", "recording-runway", "clone-assistant"]
+    },
+    "T1-B": {
+      "name": "证据调研",
+      "sequence": ["research-hero", "evidence-strip", "vertical-sources", "result-bento"]
+    },
+    "T1-C": {
+      "name": "强开场",
+      "sequence": ["hero-news", "word-fracture", "integration-hub", "kill-shot", "skill-wall", "bridge-flock"]
+    }
+  },
+  "modules": [
+    {"id":"hero-news","shotcraftCard":"graze-face-tour","styleKeys":["graze-face-tour"],"cue":"人物/新闻第一视觉信号","durationSeconds":[4,5],"requiredSlots":["heroImage"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"word-fracture","shotcraftCard":"fracture","styleKeys":["fracture"],"cue":"第一次产品名/核心名词","durationSeconds":[3,5.2],"requiredSlots":["word"],"speaker":"hidden","renderClass":"overlay-cacheable"},
+    {"id":"integration-hub","shotcraftCard":"integration-hub-map","styleKeys":["integration-hub-map"],"cue":"完全体/接入/挂载能力","durationSeconds":[4.5,5],"requiredSlots":["centerImage","nodes"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"kill-shot","shotcraftCard":"montage-rhythm-moves","styleKeys":["drop-blackout-slam","slam-entrance-moves"],"cue":"杀招/关键原因重音","durationSeconds":[3,5],"requiredSlots":["headline"],"speaker":"hidden","renderClass":"overlay-cacheable","styleSource":"Shotcraft Gallery style key; card name remains montage-rhythm-moves"},
+    {"id":"skill-wall","shotcraftCard":"page-waterfall-wall","styleKeys":["page-waterfall-wall"],"cue":"多个 Skill 并列或首页墙","durationSeconds":[4,6],"requiredSlots":["publicScreenshots"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"chapter-transition","shotcraftCard":"aurora-bloom-bg-flip","styleKeys":["aurora-bloom-bg-flip","line-carry-transition","mosaic-reframe"],"cue":"章节换场/回到人物","durationSeconds":[2,5.2],"requiredSlots":[],"speaker":"hidden","renderClass":"transition"},
+    {"id":"bridge-flock","shotcraftCard":"card-flock-tumble","styleKeys":["card-flock-tumble","paper-plane-messenger"],"cue":"口播停顿/章节换气","durationSeconds":[3.5,5],"requiredSlots":["publicScreenshots"],"speaker":"hidden","renderClass":"transition"},
+    {"id":"definition-sop","shotcraftCard":"research-card-stack-scroll","styleKeys":["paper-plane-messenger","research-card-stack-scroll"],"cue":"什么是 Skill/大白话/SOP","durationSeconds":[4,6],"requiredSlots":["conceptImage","labels"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"identity-switch","shotcraftCard":"ai-stream-response","styleKeys":["ai-stream-response"],"cue":"快速切换身份/角色","durationSeconds":[4,5],"requiredSlots":["nodes"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"install-steps","shotcraftCard":"beat-step-list-theme-cycle","styleKeys":["doc-park-left-pill-deal","list-stack-press","fui-hud-moves","line-unfold-panel"],"cue":"分三步/第一步/第二步/第三步","durationSeconds":[4,8],"requiredSlots":["steps"],"speaker":"left-rail","renderClass":"content-bound"},
+    {"id":"recording-runway","shotcraftCard":"runway-ground-skim","styleKeys":["line-unfold-panel","doc-park-left-pill-deal"],"cue":"完整演示/打开工具/输入指令","durationSeconds":[4,12],"requiredSlots":["recording"],"speaker":"right-rail","renderClass":"content-bound"},
+    {"id":"prompt-density","shotcraftCard":"scanline-annotate-focus","styleKeys":["scanline-annotate-focus"],"cue":"最烦/重复输入提示词","durationSeconds":[3.5,5],"requiredSlots":["labels"],"speaker":"hidden","renderClass":"overlay-cacheable"},
+    {"id":"process-flash","shotcraftCard":"mosaic-reframe","styleKeys":["flash-cut"],"cue":"标准流程/三个并列动作","durationSeconds":[2.5,4.5],"requiredSlots":["steps"],"speaker":"hidden","renderClass":"content-bound","styleSource":"flash-cut is the requested style; use the validated mosaic-reframe transition shell when no standalone Gallery card exists"},
+    {"id":"clone-assistant","shotcraftCard":"slam-entrance-moves","styleKeys":["kanada-perspective-snap"],"cue":"克隆/随时在线/直接调用","durationSeconds":[4,5],"requiredSlots":["labels"],"speaker":"hidden","renderClass":"overlay-cacheable","styleSource":"Shotcraft Gallery style key; card name remains slam-entrance-moves"},
+    {"id":"research-hero","shotcraftCard":"spotlight-hero-card","styleKeys":["spotlight-hero-card"],"cue":"第二个 Skill/anysearch/深度调研","durationSeconds":[4,5],"requiredSlots":["pageImage"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"evidence-strip","shotcraftCard":"word-relay-filmstrip","styleKeys":["word-relay-filmstrip"],"cue":"金融财报/法律条文/学术论文","durationSeconds":[4.5,7],"requiredSlots":["documents"],"speaker":"hidden","renderClass":"content-bound"},
+    {"id":"vertical-sources","shotcraftCard":"word-relay-geometry","styleKeys":["word-relay-geometry"],"cue":"专业垂直信息源","durationSeconds":[4.5,6],"requiredSlots":["labels"],"speaker":"hidden","renderClass":"overlay-cacheable"},
+    {"id":"result-bento","shotcraftCard":"wall-reveal-moves","styleKeys":["bento-light-up"],"cue":"可以让它找/扒出干货/整理文档","durationSeconds":[4,6],"requiredSlots":["publicScreenshots","labels"],"speaker":"hidden","renderClass":"content-bound","styleSource":"Shotcraft Gallery style key; card name remains wall-reveal-moves"},
+    {"id":"third-skill-morph","shotcraftCard":"ui-to-brand-morph","styleKeys":["icon-flip-bloom"],"cue":"第三个 Skill/品牌揭示","durationSeconds":[4,5],"requiredSlots":["pageImage"],"speaker":"hidden","renderClass":"content-bound","styleSource":"Shotcraft Gallery style key; card name remains ui-to-brand-morph"},
+    {"id":"thinking-rush","shotcraftCard":"typing-code-block","styleKeys":["typing-code-block"],"cue":"AI 太急/瞎猜瞎写","durationSeconds":[3.5,5],"requiredSlots":["safeCode"],"speaker":"hidden","renderClass":"overlay-cacheable"},
+    {"id":"planning-timeline","shotcraftCard":"timeline-travel","styleKeys":["timeline-travel"],"cue":"理解/拆解/计划/验证/执行","durationSeconds":[4,5],"requiredSlots":["milestones"],"speaker":"hidden","renderClass":"overlay-cacheable"},
+    {"id":"floating-tags","shotcraftCard":"flying-words","styleKeys":["floating-glossy-label-pills","dashboard-glow-highlight-pill"],"cue":"从属关键词与标签层","durationSeconds":[2,6],"requiredSlots":["labels"],"speaker":"fullscreen","renderClass":"overlay-cacheable"}
+  ],
+  "cueRules": [
+    {"cue":"产品名第一次出现","module":"word-fracture","maxPrimaryTransitions":1},
+    {"cue":"章节切换","module":"aurora-chapter-flip","fallback":"line-carry-transition","maxPrimaryTransitions":1},
+    {"cue":"真实网页/首页","module":"research-hero","sourcePolicy":"public-non-login-only"},
+    {"cue":"真实录屏","module":"recording-runway","fit":"contain-first","privacyAuditRequired":true},
+    {"cue":"停顿桥接","module":"bridge-flock","sourceVideo":"pause-and-resume-same-frame","bgm":"optional-bridge-only"},
+    {"cue":"字幕/正文阅读","rule":"hold-still-after-motion","minHoldSeconds":0.8}
+  ],
+  "shotcraftValidation": [
+    {"card":"graze-face-tour","source":"references/shots/camera/graze-face-tour.md"},
+    {"card":"fracture","source":"references/shots/opening/fracture.md"},
+    {"card":"integration-hub-map","source":"references/shots/ui-entrance/integration-hub-map.md"},
+    {"card":"montage-rhythm-moves","source":"references/shots/rhythm/montage-rhythm-moves.md","styleKeys":["drop-blackout-slam"]},
+    {"card":"page-waterfall-wall","source":"references/shots/ui-entrance/page-waterfall-wall.md"},
+    {"card":"paper-plane-messenger","source":"references/shots/transition/paper-plane-messenger.md"},
+    {"card":"research-card-stack-scroll","source":"references/shots/ui-entrance/research-card-stack-scroll.md"},
+    {"card":"runway-ground-skim","source":"references/shots/ui-entrance/runway-ground-skim.md"},
+    {"card":"scanline-annotate-focus","source":"references/shots/effects/scanline-annotate-focus.md"},
+    {"card":"slam-entrance-moves","source":"references/shots/effects/slam-entrance-moves.md","styleKeys":["kanada-perspective-snap"]},
+    {"card":"spotlight-hero-card","source":"references/shots/opening/spotlight-hero-card.md"},
+    {"card":"word-relay-filmstrip","source":"references/shots/typography/word-relay-filmstrip.md"},
+    {"card":"word-relay-geometry","source":"references/shots/typography/word-relay-geometry.md"},
+    {"card":"wall-reveal-moves","source":"references/shots/ui-entrance/wall-reveal-moves.md","styleKeys":["bento-light-up"]},
+    {"card":"ui-to-brand-morph","source":"references/shots/outro/ui-to-brand-morph.md","styleKeys":["icon-flip-bloom"]},
+    {"card":"typing-code-block","source":"references/shots/typography/typing-code-block.md"},
+    {"card":"timeline-travel","source":"references/shots/data/timeline-travel.md"},
+    {"card":"dashboard-glow-highlight-pill","source":"references/shots/effects/dashboard-glow-highlight-pill.md"},
+    {"card":"doc-park-left-pill-deal","source":"references/shots/ui-entrance/doc-park-left-pill-deal.md"},
+    {"card":"flying-words","source":"references/shots/typography/flying-words.md"},
+    {"card":"floating-glossy-label-pills","source":"references/shots/ui-entrance/floating-glossy-label-pills.md"},
+    {"card":"fui-hud-moves","source":"references/shots/effects/fui-hud-moves.md","styleKeys":["line-unfold-panel"]},
+    {"card":"list-stack-press","source":"references/shots/ui-entrance/list-stack-press.md"},
+    {"card":"ai-stream-response","source":"references/shots/interaction/ai-stream-response.md"},
+    {"card":"beat-step-list-theme-cycle","source":"references/shots/rhythm/beat-step-list-theme-cycle.md"},
+    {"card":"skeleton-reveal","source":"references/shots/ui-entrance/skeleton-reveal.md"},
+    {"card":"document-typewriter-reveal","source":"references/shots/typography/document-typewriter-reveal.md"},
+    {"card":"mosaic-reframe","source":"references/shots/transition/mosaic-reframe.md"},
+    {"card":"line-carry-transition","source":"references/shots/transition/line-carry-transition.md"},
+    {"card":"aurora-bloom-bg-flip","source":"references/shots/effects/aurora-bloom-bg-flip.md"},
+    {"card":"assemble-then-type-flyin","source":"references/shots/effects/assemble-then-type-flyin.md"},
+    {"card":"card-flock-tumble","source":"references/shots/transition/card-flock-tumble.md"},
+    {"card":"logo-shrink-wordmark-lockup","source":"references/shots/outro/logo-shrink-wordmark-lockup.md"},
+    {"card":"magician-card-flourish","source":"references/shots/opening/magician-card-flourish.md"},
+    {"card":"neon-triple-marquee","source":"references/shots/outro/neon-triple-marquee.md"},
+    {"card":"gradient-word-sweep","source":"references/shots/typography/gradient-word-sweep.md"}
+  ],
+  "renderCache": {
+    "reuseMotionShell": true,
+    "cacheableRenderClasses": ["overlay-cacheable", "transition"],
+    "contentBoundClasses": ["content-bound"],
+    "partialRenderRecommendedWhen": ["only text changes", "only screenshot changes", "only subtitle changes", "only bridge BGM changes"],
+    "finalRenderStillRequired": true,
+    "reason": "新素材必须与人物、字幕和音频重新合成；模板消除的是重复设计和重复调参，不是最终编码过程"
+  },
+  "qa": [
+    "JSON 与 TypeScript 注册表的模块 ID 一致",
+    "每个主动作后有至少 0.8 秒阅读停留",
+    "人物脸部焦点居中，窄栏不机械裁中",
+    "录屏先 contain，隐私遮挡不覆盖有效操作",
+    "所有公开截图为非登录页并记录来源",
+    "没有 API key、token、账户、私人路径或客户数据",
+    "桥接 BGM 只出现在明确停顿段",
+    "未改变的镜头使用缓存，改变的镜头局部渲染后再合成"
+  ]
+}

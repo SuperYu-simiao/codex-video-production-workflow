@@ -1,0 +1,36 @@
+{
+  "name": "tech-perspective-grid-background",
+  "version": "1.0.0",
+  "description": "2K seamless black and gray perspective grid background for Remotion",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.512",
+    "@remotion/zod-types": "4.0.512",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.512",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.512",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.19.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio --no-open",
+    "preview": "remotion studio --no-open",
+    "still": "remotion still TechPerspectiveGrid2K output/preview.png --frame=150",
+    "render": "remotion render TechPerspectiveGrid2K output/tech-perspective-grid-2k.mp4",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}
