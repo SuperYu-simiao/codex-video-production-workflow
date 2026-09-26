@@ -180,7 +180,8 @@
       },
       "install_path": "~/.codex/skills/video-shotcraft",
       "accepted_paths": [
-        "~/.codex/skills/video-shotcraft"
+        "~/.codex/skills/video-shotcraft",
+        "${REPO_ROOT}/skills/video-shotcraft"
       ],
       "post_install": null
     }

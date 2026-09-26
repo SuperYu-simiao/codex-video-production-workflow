@@ -23,11 +23,11 @@
 - `tools/remotion-editor/`：通用的本地包装组件编辑器原型，用 `@remotion/player` 实时预览并保存 `video.config.json`。
 - `THIRD_PARTY_NOTICES.md`：第三方来源和许可证。
 
-本机的 `video-use` 位于 `skills/video-use/`；[`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft) 由安装脚本按照 `dependencies.json` 中的固定 commit 管理。后者提供 Shotcraft 镜头配方、动态 Gallery、准确 demo TSX、Remotion 模板和音频资产；本工作流参考其镜头结构、运动语法、节奏和实现代码，并按每个用户的素材重新适配。
+`video-use` 与 [`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft) 均已内置在 `skills/` 目录下（按 `dependencies.json` 的固定 commit 打包），克隆即自带，无需联网下载。后者提供 Shotcraft 镜头配方、动态 Gallery、准确 demo TSX、Remotion 模板和音频资产；本工作流参考其镜头结构、运动语法、节奏和实现代码，并按每个用户的素材重新适配。
 
 ## 一键安装工作流 Skill
 
-克隆后，在仓库根目录执行下面的命令，会把统一入口链接到 Codex，并安装 `dependencies.json` 中固定版本的 `video-use` 与 `video-shotcraft`：
+克隆后，在仓库根目录执行下面的命令，会把统一入口链接到 Codex，并优先复用仓库内置的 `video-use` 与 `video-shotcraft`（离线可用；仅当仓库副本缺失时才回退到联网下载固定版本）：
 
 ```bash
 git clone https://github.com/SuperYu-simiao/codex-video-production-workflow.git
